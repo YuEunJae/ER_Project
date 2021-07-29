@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -41,6 +43,8 @@
 	<context:component-scan base-package="com.erproject.controller" />
 	<!-- 서비스 자동 스캔 -->
 	<context:component-scan base-package="com.erproject.*.service" />
+	<!-- 소켓 자동 스캔 -->
+	<context:component-scan base-package="com.erproject.socket" />
 	
 	<!-- 파일업로드 최소설정(아이디 반드시 multipartResolver) -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -49,6 +53,20 @@
 		<!-- 인코딩 설정 -->
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
+	
+	<!-- csBoard webSoket -->
+	<beans:bean id="csBoardSocketHandler" class="com.erproject.socket.csBoardSocketHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="csBoardSocketHandler" path="/csBoardSocket"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+		
+	
+	
+
 	
 	
 </beans:beans>

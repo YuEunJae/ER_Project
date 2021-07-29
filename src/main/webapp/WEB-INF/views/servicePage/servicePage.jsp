@@ -17,19 +17,25 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
 </head>
 <body>
+	
 
   <div id="fullpage">
     <!-- 첫번째 화면 -->
     <div class="section servicepage-s1">
-
-      <div class="s1-header">
+    
+          <div class="s1-header">
           <a href="" class="s1header-logo"><img src="${pageContext.request.contextPath }/resources/img/logo.png" alt=""></a>
-          <a href="" class="s1header-login">Login</a>
-          <a href="" class="s1header-join">Join</a>
-          <a href="" class="s1header-mypage">Mypage</a>
+          <a href="${pageContext.request.contextPath }/user/userLogin" class="s1header-login">Login</a>
+          <a href="${pageContext.request.contextPath }/user/userJoin" class="s1header-join">Join</a>
+          <a href="${pageContext.request.contextPath }/user/userMypage" class="s1header-mypage">Mypage</a>
       </div>
+
+
       
       <div class="s1-pp">
         <p class="s1-p">Kangaroo</p>
@@ -56,16 +62,16 @@
         <div class="s3-img">
           <img src="${pageContext.request.contextPath }/resources/img/use2.png">
           <div class="s3-content">
-            <strong>전동킥보드 찾고</strong>
-            <p>가까운 곳에 있는 킥보드를 찾아요</p>
+            <strong>쉽게 타고</strong>
+            <p>안전하고 빠르게 목적지로 이동해요</p>
           </div>
         </div>
 
         <div class="s3-img">
           <img src="${pageContext.request.contextPath }/resources/img/use3.png">
           <div class="s3-content">
-            <strong>전동킥보드 찾고</strong>
-            <p>가까운 곳에 있는 킥보드를 찾아요</p>
+            <strong>주차하고</strong>
+            <p>적당한 위치에 주차하고 반납해주세요</p>
           </div>
         </div>
 
@@ -130,7 +136,7 @@
             </div>
 
             <div class="s4-p">
-              <p>2. 운전면허 필수</p>
+              <p>2. 운전면허 필수 </p>
             </div>
 
             <div class="s4-p">
@@ -164,11 +170,10 @@
             <div class="s4-p">
               <p>10. 주행전 안전확인</p>
             </div>
-           
-            
-      
         </div>
 
+
+	
       <div>
 
       </div>
@@ -182,6 +187,9 @@
       </div>
       
       <div class="s5-chart2">
+    
+      	<div>#점유율</div>
+    
         <div class="chart-div">
             <canvas id="pieChartCanvas" width="300px" height="300px"></canvas>
             <div id='legend-div' class="legend-div"></div>
@@ -194,7 +202,42 @@
 
     </div>
 
-    <!-- 마지막 화면 -->
+		<div class="section servicepage-s7">
+			<div class="s7-title" id="s7-title">
+				<strong>communication</strong>
+			</div>
+			
+			<div class="s4-btn2" id="s4-btn2">
+				<button id="s7btn1" value="1">자유채팅방</button>
+				<button id="s7btn2" value="2">후기채팅방</button>
+				<button id="s7btn3" value="3">이용채팅방</button>
+			</div>
+
+
+			
+			<!-- 채팅 -->
+			<div class="s4-bottom" id="s4-bottom" >
+				<button id="s4-close">채팅방 나가기</button>
+				<div class="s4-title" id="s4-title">채팅</div>
+				<div class="s4-content" id="messages"></div>
+				<!-- 세션아이디 -->
+				<input type="text" id="sender" value="${userId}" style="display: none;">
+				<input type="text" id="bno" value="2" style="display: none;" >
+
+				<div class="s4-input">
+					<input type="text" id="messageinput" class="s4-mesege"
+						onkeyup="if(window.event.keyCode==13){send()}" maxlength='20'/>
+					<button id="s4-btn" onclick="send();">전송</button>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+		<!-- 마지막 화면 -->
     <div class="section servicepage-s6">
       <p class="s6-p">Kangaroo Partner</p>
       <div class="s6-img">
@@ -202,7 +245,136 @@
       </div>
     </div>
 
+
 </div>
+
+
+<!-- websocket javascript -->
+  <script>
+  
+        var ws;
+        var messages = document.getElementById("messages");
+        var mesege = document.querySelector("#messageinput");
+        var bno = document.getElementById("bno").value;
+       
+        var btn1 = document.querySelector("#s7btn1");
+        var btn2 = document.querySelector("#s7btn2");
+        var btn3 = document.querySelector("#s7btn3");
+        
+        var s4close = document.getElementById("s4-close");
+        
+        
+        s4close.onclick = function() {
+        	
+        	while ( messages.hasChildNodes() ) {
+        		messages.removeChild( messages.firstChild );
+        		}
+
+        	
+        	
+        	closeSoket();
+        	document.getElementById("s7-title").style.display = "block";
+        	document.getElementById("s4-btn2").style.display = "block";
+        	document.getElementById("s4-bottom").style.display = "none";
+        }
+        
+        btn1.onclick = function() {
+        	bno = 1;
+        	document.getElementById("s4-title").innerHTML = "자유채팅방";
+        	document.getElementById("s7-title").style.display = "none";
+        	document.getElementById("s4-btn2").style.display = "none";
+        	document.getElementById("s4-bottom").style.display = "inline-block";
+        	document.getElementById("s4-bottom").style.opacity = "1";
+        	openSocket();
+        } 
+        
+        btn2.onclick = function() {
+        	bno = 2;
+        	document.getElementById("s4-title").innerHTML = "후기채팅방";
+        	document.getElementById("s7-title").style.display = "none";
+        	document.getElementById("s4-btn2").style.display = "none";
+        	document.getElementById("s4-bottom").style.display = "inline-block";
+        	document.getElementById("s4-bottom").style.opacity = "1";
+        	openSocket();
+        }
+        
+        btn3.onclick = function() {
+        	bno = 3;
+        	document.getElementById("s4-title").innerHTML = "이용채팅방";
+        	document.getElementById("s7-title").style.display = "none";
+        	document.getElementById("s4-btn2").style.display = "none";
+        	document.getElementById("s4-bottom").style.display = "inline-block";
+        	document.getElementById("s4-bottom").style.opacity = "1";
+        	openSocket();
+        }
+        
+        function openSocket(){
+            if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
+                /* writeResponse("WebSocket is already opened."); */
+                return;
+            }
+            //웹소켓 객체 만드는 코드
+            ws = new WebSocket("ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/echo/" + bno);
+            
+            ws.onopen = function(event){
+                if(event.data === undefined){
+              		return;
+                }
+                writeResponse(event.data);
+            };
+            
+            ws.onmessage = function(event){
+                console.log('writeResponse');
+                console.log(event.data)
+                writeResponse(event.data);
+            };
+            
+            ws.onclose = function(event){
+                
+            }
+            
+        }
+        
+        
+        
+        function send(){
+        	
+            var text = document.getElementById("messageinput").value+","+document.getElementById("sender").value+","+bno;
+            ws.send(text);
+            text = "";
+            messageinput.value = "";
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function writeResponse(text){
+        	
+         	var text2 = text;
+         	
+			if (text2.indexOf("<나>") == 0) {
+	            
+				messages.innerHTML += '<br/><div class="s4-chat1">'+text+'</div>';
+	            messages.scrollTop = messages.scrollHeight;
+	            
+			}
+			
+			else {
+				
+				messages.innerHTML += '<br/><div class="s4-chat2">'+text+'</div>';
+	            messages.scrollTop = messages.scrollHeight;
+         	}
+			
+			
+
+    
+        }
+       
+
+       function closeSoket() {
+    	   ws.close();
+       }
+        
+  </script>
+
 
 <!-- 풀페이지 -->
 <script>
@@ -211,7 +383,7 @@
     licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
     sectionsColor: ['cornflowerblue', 'white', 'white', '#fff'],
     navigation: true, 
-    navigationTooltips: ['Section 1', 'Section 2', 'Section 3', 'Section 4', 'Section 5', 'Section 6']
+    navigationTooltips: ['Section 1', 'Section 2', 'Section 3', 'Section 4', 'Section 5', 'Section 6', 'Section 7']
   });
 
 
@@ -227,7 +399,7 @@
           labels: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일','일요일'],
           datasets: [{
               label: '# 일별사용량',
-              data: [12, 19, 3, 5, 2, 3, 13],
+              data: [${Mon}, ${Tue}, ${Wed}, ${Thu}, ${Fri}, ${Sat}, ${Sun}],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
@@ -270,10 +442,10 @@
     }
 
 	let pieChartData = {
-	  labels: ['삼성', '하닉', '안녕asdad', '보잉', '애플', '어렵'],
+	  labels: ['Xiaomi', 'Nio', 'Switch', 'Roku', 'Wing'],
 	  datasets: [{
-	      data: [95, 12, 13, 7, 13, 10],
-	      backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)']
+	      data: [${Xiaomi}, ${Nio}, ${Switch}, ${Roku}, ${Wing}],
+	      backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)']
 	  }] 
 	};
 
@@ -305,6 +477,9 @@ let customLegend = function (chart) {
 };
 
 </script>
+
+
+
 
 </body>
 </html>

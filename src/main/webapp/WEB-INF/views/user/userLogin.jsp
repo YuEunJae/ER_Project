@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css">
-<script src="${pageContext.request.contextPath}/resources/js/kakao.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/kakao.js"></script>  --%>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 
 
     <section class="login-body">
@@ -26,7 +28,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        <button class="btn btn-primary btn-block">Join</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="location.href='userForgot'">Forgot Password</button>
 
 
                     </form>
@@ -46,16 +48,28 @@
                 </aside>
             </div>
         </div>
+        
+    
     </section>
     
-    	<script>
-		var msg = "${msg}";
-		if(msg != "") {
-			alert(msg);
-		}
-	</script>
+<script>
+    
+    	window.onload = function() {
+    		var msg = "${msg}";
+    		if(msg != "") {
+    			alert(msg);
+    		}
+    		
+    	}
+    	
+</script>
+    
+   
 
-    <script>
+	
+    
+
+ <script>
     
         //카카오초기화
         Kakao.init('142afd9b0883708f95203d9b9c24ca2b');
@@ -86,29 +100,31 @@
                 url: '/v2/user/me',
                 success: function (res) {
                    
+                var email = res.kakao_account.email;
                 	console.log(res);
            
-                	var email = res.kakao_account.email;
-                    var nick = res.kakao_account.nickname;
-                    
-                    console.log(email, nick);
-    
-    
+                    console.log(email);
+
+                	
+                	 location.href='kakaoForm?userId='+email; 
+        
                 },
                 fail: function (error) {
                     alert(
                         '카카오로그인에 실패했습니다 확인하세요 : ' + JSON.stringify(error))
                 },
+                
+    
             })
-        }
-    
-       
-       
-    
-    
-    
-    
-    </script>
+            
+        };
+                
+        
+
+    </script> 
+  
+   
+ 
     
 
    

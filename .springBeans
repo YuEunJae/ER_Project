@@ -7,11 +7,18 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/webapp/WEB-INF/spring/DB-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/servlet-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
 	<configSets>
+		<configSet>
+			<name><![CDATA[servlet-context]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+			</configs>
+			<profiles>
+			</profiles>
+		</configSet>
 	</configSets>
 </beansProjectDescription>

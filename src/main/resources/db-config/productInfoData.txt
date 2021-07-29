@@ -1,0 +1,121 @@
+-- 데이터베이스에 넣어 줄 제품 정보입니다! 전체 선택, 복사해서 sqldevelop에 넣어주고 커밋해주시면 됩니다...
+-- ALTON
+insert into productinfo values('ALTON', 'ALTON Kick Board', '(주) ALTON (THE ALTON CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY ALTON <br />
+	부담 없이 렌탈하고 <br />
+	언제든 ALTON에게 되팔 수 있어요! <br />', '#ALTON <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 12.5KG (배터리포함)', '최고속도 - 25KM/H', '최대 주행 거리 - 28KM', 'altonimg1.png', 'altonimg2.png', 'altonimg3.png', 'altonimg4.png', 'altonimg5.png', 'altoninfoimg1.png', 'altoninfoimg2.png');
+
+-- MOTOVELO 
+insert into productinfo values('MOTOVELO', 'MOTOVELO Kick Board', '(주) MOTOVELO (THE MOTOVELO CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY MOTOVELO <br />
+	부담 없이 렌탈하고 <br />
+	언제든 MOTOVELO에게 되팔 수 있어요! <br />', '#MOTOVELO <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 28KG', '최고속도 - 25KM/H', '최대 주행 거리 - 45KM', 'motoveloimg1.jpg', 'motoveloimg2.jpg', 'motoveloimg3.jpg', 'motoveloimg4.jpg', 'motoveloimg5.jpg', 'motoveloinfoimg1.jpg', 'motoveloinfoimg2.jpg');
+
+-- Nio-NQ-01 
+insert into productinfo values('Nio-NQ-01', '바이클로 킥보드', '(주) BICLO (THE BICLO CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY 바이클로 <br />
+	부담 없이 렌탈하고 <br />
+	언제든 바이클로에게 되팔 수 있어요! <br />', '#바이클로 <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 16.4KG', '최고속도 - 25KM/H', '최대 주행 거리 - 45KM', 'nionq01img1.jpg', 'nionq01img2.jpg', 'nionq01img3.jpg', 'nionq01img4.jpg', 'nionq01img5.jpg', 'nionqinfoimg1.jpg', 'nionqinfoimg2.jpg');
+
+-- One-Step-10D 
+insert into productinfo values('One-Step-10D', 'One Step Kick Board', '(주) 원스텝 (THE One Step CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY 원스텝 <br />
+	부담 없이 렌탈하고 <br />
+	언제든 원스텝에게 되팔 수 있어요! <br />', '#One Step <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 22KG', '최고속도 - 25KM/H', '최대 주행 거리 - 80KM', 'onestep10dimg1.jpg', 'onestep10dimg2.jpg', 'onestep10dimg3.jpg', 'onestep10dimg4.jpg', 'onestep10dimg5.jpg', 'onestep10dinfoimg1.jpg', 'onestep10dinfoimg2.jpg');
+
+-- Switch-S10
+insert into productinfo values('Switch-S10', 'SWING Kick Board', '(주) 더스윙 (THE SWING CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY SWING <br />
+	부담 없이 렌탈하고 <br />
+	언제든 SWING에게 되팔 수 있어요! <br />', '#SWINGMOBILITY <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 27.5KG', '최고속도 - 25KM/H', '최대 주행 거리 - 65KM', 'switchs10img1.jpg', 'switchs10img2.jpg', 'switchs10img3.jpg', 'switchs10img4.jpg', 'switchs10img5.jpg', 'switchs10infoimg1.jpg', 'switchs10infoimg2.png');
+
+-- ZETA
+insert into productinfo values('ZETA', 'REDWING Kick Board', '(주) 레드윙 (THE REDWING CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY 레드윙 <br />
+	부담 없이 렌탈하고 <br />
+	언제든 레드윙에게 되팔 수 있어요! <br />', '#REDWING <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 15KG', '최고속도 - 25KM/H', '최대 주행 거리 - 30KM', 'zetaimg1.jfif', 'zetaimg2.jfif', 'zetaimg3.jfif', 'zetaimg4.jfif', 'zetaimg5.jfif', 'zetainfoimg1.jfif', 'zetainfoimg2.jfif');
+
+-- M365
+insert into productinfo values('M365', 'Xiaomi Kick Board', '(주) 샤오미 (THE Xiaomi CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY Xiaomi <br />
+	부담 없이 렌탈하고 <br />
+	언제든 Xiaomi에게 되팔 수 있어요! <br />', '#Xiaomi <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 22.5KG', '최고속도 - 25KM/H', '최대 주행 거리 - 30KM', 'm365img1.jpeg', 'm365img2.jpeg', 'm365img3.jpeg', 'm365img4.jpeg', 'm365img5.jpeg', 'm365infoimg1.jpg', 'm365infoimg2.jpg');
+
+-- PRC-456
+insert into productinfo values('PRC-456', 'Xiaomi Kick Board', '(주) 샤오미 (THE Xiaomi CO. LTD)', '개인용 전동 킥보드 렌탈 서비스 <br />
+	MY Xiaomi <br />
+	부담 없이 렌탈하고 <br />
+	언제든 Xiaomi에게 되팔 수 있어요! <br />', '#Xiaomi <br />
+	5월부터 시행되는 도로교통법 알아보기 <br />
+	안전한 전동 킥보드 <br />
+	이용수칙 <br />
+	1. 안전 수칙 5가지 위반 시 <br />
+	2. 통행 방해, 사유지 주정차 시 <br />
+	지자체로부터 과태료 및 범칙금이 <br />
+	부과될 수 있어요. <br />
+	3. 잘못된 주정차로 견인비, 과태료 발생 시 <br />
+	이용약관에 따라 고객에게 비용을 청구할 수 있어요. <br />', '무게 - 22.5KG', '최고속도 - 25KM/H', '최대 주행 거리 - 30KM', 'prc-456img1.jpg', 'prc-456img2.jpg', 'prc-456img3.jpg', 'prc-456img4.jpg', 'prc-456img5.jpg', 'prc-456infoimg1.jpg', 'prc-456infoimg2.jpg');
+

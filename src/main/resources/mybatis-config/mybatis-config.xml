@@ -11,9 +11,14 @@
 			<typeAlias type="com.erproject.command.UserVO" alias="UserVO"/>
 			<typeAlias type="com.erproject.command.ProductReviewVO" alias="ProductReviewVO"/>
 			<typeAlias type="com.erproject.command.ProductInfoVO" alias="ProductInfoVO"/>
+			<typeAlias type="com.erproject.command.ProductHelpVO" alias="ProductHelpVO"/>
 			<typeAlias type="com.erproject.command.FaqVO" alias="FaqVO"/>
 			<typeAlias type="com.erproject.command.FaqImageVO" alias="FaqImageVO"/>
 			<typeAlias type="com.erproject.command.QnaVO" alias="QnaVO"/>
-
+			<typeAlias type="com.erproject.command.QnaAnswerVO" alias="QnaAnswerVO"/>
+			<typeAlias type="com.erproject.command.CsUpdateVO" alias="CsUpdateVO"/>	
+			<typeAlias type="com.erproject.command.GraphicVO" alias="GraphicVO"/>
+			<typeAlias type="com.erproject.command.KickListVO" alias="KickListVO" />
+			<typeAlias type="com.erproject.command.PhotoReviewVO" alias="PhotoReviewVO" />
 		</typeAliases>
 	</configuration>

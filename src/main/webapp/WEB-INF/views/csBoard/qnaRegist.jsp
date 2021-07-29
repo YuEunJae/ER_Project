@@ -5,7 +5,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/qnaRegist.css">
 </head>
 
-<!-- 글 등록 폼 -->
+	<!-- 글 등록 폼 -->
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 content-wrap">
@@ -39,7 +39,7 @@
                         <!-- 작성자 -->
                         <div class="form-title">
                             <label>작성자 : </label>
-                            <input type="text" name="qna_Writer" value="" required>
+                            <input type="text" name="qna_Writer" value="${userVO.userId }" readonly>
                         </div>
                         
                         <!-- 제목 -->
@@ -51,7 +51,7 @@
                         <!-- 내용 -->
                         <div class="form-title content">
                             <label>내용 : </label >
-                            <textarea name="qna_Content" placeholder="내용을 입력하세요."></textarea>
+                            <textarea name="qna_Content" placeholder="내용을 입력하세요." required></textarea>
                         </div>
                         
                         <!-- 버튼 -->

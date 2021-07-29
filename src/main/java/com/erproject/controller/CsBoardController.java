@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erproject.command.APP_CONSTANT;
+import com.erproject.command.CsUpdateVO;
 import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
+import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.Criteria;
@@ -83,10 +86,35 @@ public class CsBoardController {
 		
 	}
 	
+	@RequestMapping("/csBoardUpdate")
+	public void csBoardUpdate(@RequestParam("bno") int bno,
+							  HttpServletRequest request,
+							  Model model) {
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if( cookies != null && cookies.length > 0) { // 쿠키가 있는경우
+			
+			for(int i = 0 ; i < cookies.length ; i++) {
+				
+				if(cookies[i].getName().equals("whereboard")) { // whereboard 라는 쿠키
+					String whereBoard = cookies[i].getValue();
+					model.addAttribute("whereBoard", whereBoard);
+					
+					model.addAttribute("UpdateList", csBoardService.getUpdateList(whereBoard, bno));
+				}
+			}
+		}
+		
+		
+	}
+	
 //	notice 게시판 글 등록
 	@RequestMapping("/noticeRegist")
 	public String noticeRegist(NoticeVO vo, 
 							   RedirectAttributes RA) {
+		
+		System.out.println(vo.getFile().toString());
 		
 		int result = csBoardService.noticeRegist(vo);
 		
@@ -129,6 +157,50 @@ public class CsBoardController {
 		} else {
 			RA.addFlashAttribute("msg", "글 등록에 실패했습니다. 다시 시도하세요");
 		}
+		
+		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	QnA 게시판 답변 글 등록
+	@RequestMapping("/replyRegist")
+	public String replayRegist(QnaAnswerVO vo,
+							   RedirectAttributes RA) {
+		
+		int result = csBoardService.qnaAnswerRegist(vo);
+		
+		if( result == 1) {
+			RA.addFlashAttribute("msg", "답변이 등록 되었습니다.");
+		} else {
+			RA.addFlashAttribute("msg", "답변 등록에 실패했습니다. 다시 시도하세요");
+		}
+		
+		return "redirect:/csBoard/csBoardList";
+	}
+	
+//	게시판 수정하기 완료
+	@RequestMapping("/CsUpdateOK")
+	public String CsUpdateOK(CsUpdateVO vo, HttpServletRequest request, HttpServletResponse response, RedirectAttributes RA) {
+		
+		System.out.println(vo.toString());
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if(cookies != null && cookies.length > 0) { // 쿠기가 있는 경우
+			
+			for(int i = 0 ; i < cookies.length; i++) {
+				if(cookies[i].getName().equals("whereboard")) {
+					int result = csBoardService.updateList(cookies[i].getValue(), vo);
+					
+					if(result == 1) {
+						RA.addFlashAttribute("msg", "정상적으로 수정 되었습니다.");
+					} else {
+						RA.addFlashAttribute("msg", "오류가 발생했습니다. 다시 시도하세요");
+					}
+				}
+			}
+			
+		}
+		
 		
 		return "redirect:/csBoard/csBoardList";
 	}

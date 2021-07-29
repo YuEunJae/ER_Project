@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.erproject.location.mapper.LocationMapper">
+  
+  	<insert id="setMarkInfo">	
+		insert into kickList(markno, pcode, ccode, location_x, location_y, ISRENTAL, RENTALDATE)
+  					VALUES(#{markNo}, #{pCode}, #{cCode}, #{location_x}, #{location_y}, 0, '1111-11-11')					
+  	</insert>
+  	
+  	<select id="getKickInfo" resultMap="kickList">
+  		select * from kickList k join ProductInfo p on k.pcode=p.pcode order by k.markNo
+  	</select>
+  	<resultMap id="kickList" type="kickListVO">
+		<result column="markNo" property="markNo" />
+		<result column="pCode" property="pCode" />
+		<result column="cCode" property="cCode" />
+		<result column="location_x" property="location_x" />
+		<result column="location_y" property="location_y" />
+		<result column="isRental" property="isRental" />
+		<result column="rentalDate" property="rentalDate" />
+		<collection resultMap="productList" property="productInfoVO" />
+	</resultMap>
+	<resultMap id="productList" type="productInfoVO">
+		<result column="pcode" property="pcode" />
+		<result column="pname" property="pname" />
+		<result column="cpname" property="cpname" />
+		<result column="pbasicinfo" property="pbasicinfo" />
+		<result column="pcontent" property="pcontent" />
+		<result column="pspec1" property="pspec1" />
+		<result column="pspec2" property="pspec2" />
+		<result column="pspec3" property="pspec3" />
+		<result column="pimg1" property="pimg1" />
+		<result column="pimg2" property="pimg2" />
+		<result column="pimg3" property="pimg3" />
+		<result column="pimg4" property="pimg4" />
+		<result column="pimg5" property="pimg5" />
+		<result column="pinfoimg1" property="pinfoimg1" />
+		<result column="pinfoimg2" property="pinfoimg2" />
+	</resultMap>
+
+  	<update id="updateMarkInfo">
+  			UPDATE kickList SET pCode=#{pCode}, cCode=#{cCode} WHERE markNo = #{markNo}
+  	</update>
+  	
+  	
+  </mapper>

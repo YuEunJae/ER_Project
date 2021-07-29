@@ -8,15 +8,29 @@
   <select id="idCheck" resultType="int">
   select count(*) as result 
   from users where userId =#{userId}
-  
-  
   </select>
+  
+
+  
+  <select id="kakaoCheck" resultType="int">
+  select count(*) as result 
+  from users where userId =#{email}
+  </select>
+  
+
   
   <!-- 회원가입 -->
  <insert id="join">
   		insert into users(userId, userPw, userName, userPhone, userEmail, addrAll)
   		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , #{userEmail1} || #{userEmail2}, #{addrZipNum} ||#{addrBasic}|| #{addrDetail})
   		
+  	</insert>
+  	
+  	<insert id="kakaojoin">
+  	
+  	insert into users(userId ,userPw, userEmail) 
+  	values(#{userId} ,#{userId}, #{userEmail} )
+  	
   	</insert>
   	
   	<!-- 로그인 -->
@@ -27,40 +41,123 @@
   	
   	</select>
   	
+  	
   	<select id="getInfo" resultMap="userInfo">
-  	select userId,
-  	       userName,
-  	       userPhone
-  	       
-  	from users
-  	where userId = #{userId}
+  			select userId,
+  			       userEmail,
+  			       userPhone,
+  			       userName,
+  	               q.qna_no,
+  	               q.qna_title,
+  	               q.qna_IsAnswer
+  	               from users u 
+  	               left outer join QNA q
+  	               on u.userId = q.QNA_WRITER
+  	               where userId = #{userId}
+  	               order by q.qna_no desc
+  	
   	</select>
+  	
   	<resultMap type="UserVO" id="userInfo">
   	<result property="userId" column="USERID"/>
-  	<result property="userName" column="USERNAME"/>
+  	<result property="userPw" column="USERPW"/>
+  	<result property="userEmail" column="USEREMAIL"/>
   	<result property="userPhone" column="USERPHONE"/>
- 
-  	
+  	<result property="userName" column="USERNAME"/>
+  	<collection property="qnaList" resultMap="qnaList" />
   	</resultMap>
+  	<resultMap type="QnaVO" id="qnaList">
+  	<result property="qna_No" column="QNA_NO"/>
+  	<result property="qna_Title" column="QNA_TITLE"/> 
+  	<result property="qna_Writer" column="QNA_WRITER"/> 
+  	<result property="qna_IsAnswer" column="QNA_ISANSWER"/> 
+  	</resultMap> 
+  	
+  	
+  	<select id="getInfo2" resultMap="userInfo2">
+  	
+  	       select userId , 
+  	              p.rno,
+  	              p.title,
+  	              p.writer,
+  	              p.pcode
+  	       from users u 
+  	       left outer join PRODUCTREVIEW p
+  	       on u.userId = p.writer
+  	       where userId =#{userId}
+  	       order by p.rno desc
+  	               
+  	
+  	</select>
+  	
+  	<resultMap type="UserVO" id="userInfo2">
+  	<result property="userId" column="USERID"/>
+  	<result property="userPw" column="USERPW"/>
+  	<result property="userEmail" column="USEREMAIL"/>
+  	<collection property="proReList" resultMap="proReList" />
+  	</resultMap>
+  	<resultMap type="ProductReviewVO" id="proReList">
+  	<result property="rno" column="RNO"/>
+  	<result property="title" column="TITLE"/> 
+  	<result property="writer" column="WRITER"/> 
+  	<result property="content" column="CONTENT"/> 
+  	<result property="pcode" column="PCODE"/> 
+  	</resultMap> 
+  	
+  	
+  	
+  	
+  	
   	
   	<update id="update">
   	
   	update USERS set userPw = #{userPw},
   	                 userName =#{userName},
   	                 userPhone =#{userPhone},
-  	                 userEmail =#{userEmail1} || #{userEmail2},
+  	                 userEmail =#{userEmail},
   	                 addrAll =#{addrZipNum} || #{addrBasic} || #{addrDetail}
   	                 
   	                 where userId =#{userId}
   	</update>
   	
+  	<!--패스워드 업데이트 하기! -->
+  	<update id="pwUpdate">
+  	update users set userPw =#{userPw}
+  	where userId=#{userId}
+  	
+  	</update>
+  	
+  	
   	<delete id="delete">
   	delete from users where userId=#{userId} and userPw =#{userPw}
   	</delete>
+
   	
+  	
+ <!-- qna게시글 내가쓴글 삭제!~ -->
  
-  
-  
-  
-  
+  	<delete id="qnaDelete">
+  	
+  	delete from QNA where QNA_NO =#{bno}
+  	
+  	</delete>
+  	
+  	<delete id="qnaReDelete">
+  	
+  	delete from QNA_ANSWER where QNA_NO =#{bno}
+  	
+  	</delete>
+  	
+  	<delete id="rnoDelete">
+  	
+  	delete from PRODUCTREVIEW where rno =#{rno}
+  	
+  	</delete>
+  	
+  	<select id="rentalNum" resultType="int">
+  	
+  	select count(*) as result from kickList where isRental = 0
+  	
+  	</select>
+  	
   </mapper>

@@ -41,4 +41,51 @@
 	<!-- 마이바티스의 인터페이스를 읽어서 사용할 수 있도록 처리. -->
 	<mybatis-spring:scan base-package="com.erproject.*.mapper"/>
 	
+	<!-- 이메일 -->
+
+
+<!-- navermail설정 -->
+<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+
+<property value="smtp.naver.com" name="host"/>
+
+<!-- 메이서버 호스트 -->
+
+
+<property value="465" name="port"/>
+
+<!-- 메이서버 포트번호 -->
+
+
+<property value="thevanppp@naver.com" name="username"/>
+
+<property value="kim45066264" name="password"/>
+
+<!-- 보안연결 SSL과 관련된 설정 -->
+
+
+
+<property name="javaMailProperties">
+
+
+<props>
+
+<prop key="mail.smtp.auth">true</prop>
+
+<prop key="mail.smtp.starttls.enable">true</prop>
+
+<prop key="mail.smtps.checkserveridentity">true</prop>
+
+<prop key="mail.smtps.ssl.trust">*</prop>
+
+<prop key="mail.debug">true</prop>
+
+<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+
+</props>
+
+</property>
+
+</bean>
+	
 </beans>

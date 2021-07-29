@@ -6,7 +6,7 @@
 }
 
 .sect-main {
-    margin: 100px auto 0 auto;
+    margin: 10px auto 0 auto;
 }
 
 .top-text {
@@ -114,7 +114,7 @@
 
 /* 탭영역 sticky */
 .tabs-basic {
-    position: sticky; top: 80px; z-index: 100;
+    position: sticky; top: 0px; z-index: 100;
     background-color: #fff;
     overflow: hidden;
     height: 55px;
@@ -138,10 +138,13 @@
     overflow: hidden;
 }
 
-.reviewStar, .reviewWriter, .reivewDate {
+.reviewWriter, .reivewDate {
     margin-right: 10px;
     float: left;
 }
+
+.reviewWriter {margin-left: 10px;}
+.reviewStar {float: left;}
 
 .reviewPostBtn {
     padding-right: 5px;
@@ -193,6 +196,11 @@
     color: #fff;
     background-color: rgb(171, 188, 227);
 }
+.reviewModiListBtn {
+	color: #fff;
+    background-color: cornflowerblue;
+}
+.modi-wrap {text-align: center;}
 
 /*=======댓글========*/
 .reply-wrap {
@@ -340,4 +348,69 @@
     color: #fff;
 }
 
+/* 새로운 페이지 테스트 */
+.contents {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.inner {
+    overflow: hidden;
+}
+.contents > .inner li {
+    float: left;
+    width: 25%;
+    padding: 20px;
+    position: relative;
+    list-style: none;
+    font-weight: bold;
+}
+
+.contents > .inner .product {
+    width: 220px;
+}
+
+.contents > .inner img {
+    max-width: 100%;
+    height: 215px;
+}
+
+.contents > .inner li h2 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 10px;
+}
+
+.contents > .inner li h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 10px;
+}
+
+.contents > .inner li .content-hover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+}
+.contents > .inner li .content-hover a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 700;
+    padding: 30px;
+    text-decoration: none;
+}
+
+.contents > .inner li .content-hover:hover {
+    opacity: 1;
+}
 

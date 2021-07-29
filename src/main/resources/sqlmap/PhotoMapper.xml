@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.erproject.photo.mapper.PhotoMapper">
+  
+  	<select id="photoReviewGetList" parameterType="String" resultType="PhotoReviewVO">
+  	<![CDATA[
+	  	select PNO,
+		         PCODE,
+		         PHOTOIMAGE,
+		         PHOTOWRITER,
+		         PHOTOTITLE,
+		         PHOTOSTAR,
+		         PHOTOCONTENT,
+		         case when gap <= 60 THEN '방금전'
+		                when gap <= 60 * 24 THEN TRUNC( gap / 60 ) || '시간전'
+		           else to_char(CREATED, 'YYYY-MM-DD')
+		           end as CREATED
+		 from (select PNO,
+			         PCODE,
+			         PHOTOIMAGE,
+			         PHOTOWRITER,
+			         PHOTOTITLE,
+			         PHOTOSTAR,
+			         PHOTOCONTENT,
+		             created,
+		             TRUNC( (SYSDATE - created) * 24 * 60 ) as gap 
+		        from PHOTOREVIEW
+	]]>
+		             <if test="value!=null"> 
+			  			where PCODE = #{value}  
+			  		</if> 
+		    order by PNO DESC )
+  	</select>
+  	
+  	<insert id="photoReviewRegist">
+  		insert into photoreview values(photoreview_seq.nextval, #{pcode}, #{photoImage}, #{photoWriter}, #{photoTitle}, #{photoStar}, #{photoContent}, SYSDATE )
+  	</insert>
+  	
+  	<select id="productGet" parameterType="String" resultType="ProductInfoVO">
+  		select * from PRODUCTINFO where pcode = #{pcode}
+  	</select>
+ 	
+ 	<select id="productGetList" resultType="ProductInfoVO">
+  		select * from PRODUCTINFO
+  	</select>
+  	
+  	
+  	<select id="photoReviewList" resultType="ProductReviewVO">
+  		<![CDATA[
+  		select *
+  		from (select rownum rn,
+  					 pno,
+  					 pcode,
+  					 photoimage,
+  					 photowriter,
+  					 phototitle,
+  					 photostar,
+  					 photocontent,
+  					 case when gap <= 60 THEN '방금전'
+		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+		  			   else to_char(created, 'YYYY-MM-DD')
+		  			   end as created
+  			  from (select pno,
+  			  			   pcode,
+  			  			   photoimage,
+  			  			   photowriter,
+  			  			   phototitle,
+  			  			   photostar,
+  			  			   photocontent,
+  			  			   trunc( (sysdate - created) * 24 * 60 ) as gap
+  			  		from photoreview
+  			  		where pcode = #{cri.pcode}
+  			  		order by pno desc) a)
+  		where rn > (#{cri.pageNum}-1) * #{cri.amount} and rn <= #{cri.pageNum} * #{cri.amount}
+  		]]>
+  	</select>  	
+  	
+  </mapper>

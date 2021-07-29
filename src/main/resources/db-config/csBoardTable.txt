@@ -66,7 +66,3 @@ CREATE TABLE QNA_ANSWER(
     QA_REGDATE DATE DEFAULT SYSDATE
 );
 CREATE SEQUENCE QNA_ANSWER_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
-
--- server.xml <Host> 추가
-<Context path="/noticeImageFilePath" reloadable="true" docBase="C:\Users\user\Desktop\Project\ER_Project\src\main\webapp\resources\img\Notice" />
-<Context path="/faqImageFilePath" reloadable="ture" docBase="C:\Users\user\Desktop\Project\ER_Project\src\main\webapp\resources\img\FAQ" />

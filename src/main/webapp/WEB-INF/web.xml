@@ -23,6 +23,12 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/servlet-context.xml</param-value>
 		</init-param>
+
+		<!-- 문제있으면삭제 -->
+		<load-on-startup>1</load-on-startup>
+      	<async-supported>true</async-supported> <!-- 웹소켓을 위한 설정(비동기지원) -->
+
+
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
@@ -31,6 +37,9 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+
+
 	
 	<!-- 한글처리 -->
 	  <filter>

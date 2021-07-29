@@ -64,6 +64,18 @@ a:hover, a:focus {
     text-align: left;
 }
 
+/* 이미지 미리보기 */
+.fileDiv > .imageFile {
+	display: inline-block;
+	position: relative;
+}
+
+.fileDiv > .imageFile > .imgDeleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .post-regist .file {
     text-align: center;
     color: white;
@@ -283,6 +295,40 @@ a:hover, a:focus {
 
 .paging > li.active > a {
     color: #fff;
+}
+
+/* aside 관리자와 채팅 */
+.chatting {
+    position: fixed;
+
+    top: 20%;
+    right: 10px;
+}
+
+.chat-wrap {
+
+    width: 300px;
+
+    padding: 10px 0;
+}
+
+.chat-wrap > p {
+    text-align: center;
+}
+
+.chat-wrap > .chat {
+    height: 200px;
+    border: 1px solid #777;
+    
+    overflow: auto;
+}
+
+.chat-wrap > .chat > p > span:hover {
+	cursor: pointer;
+}
+
+.chat-wrap > input[type='text'] {
+    width: 230px;
 }
 
 /* 글쓰기 버튼 */

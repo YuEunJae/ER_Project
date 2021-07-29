@@ -20,6 +20,15 @@
   					VALUES(QNA_SEQ.NEXTVAL, #{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
   	</insert>
   	
+  	<insert id="qnaAnswerRegist">
+  		insert into QNA_ANSWER(QA_NO, QNA_NO, QA_WRITER, QA_CONTENT)
+  					VALUES(QNA_ANSWER_SEQ.NEXTVAL, #{qna_No}, #{qa_Writer}, #{qa_Content})
+  	</insert>
+  	
+  	<update id="qnaAnswerUpdate">
+  		UPDATE QNA SET QNA_ISANSWER = 'Y' WHERE QNA_NO = #{bno}
+  	</update>
+  	
   	<select id="getNoticeTotal" resultType="int">
   		select count(*) as total from notice where
   		<if test="searchType == '' or searchType == null">1 = 1</if>
@@ -34,6 +43,12 @@
   		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
   		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
   		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		and
+  		<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
+		<if test="listOrder == 'product'">faq_maincategori = 'product'</if>
+		<if test="listOrder == 'rental'">faq_maincategori = 'rental'</if>
+		<if test="listOrder == 'review'">faq_maincategori = 'review'</if>
+		<if test="listOrder == '' or listOrder == null">1 = 1</if>
 	</select>
 	
 	<select id="getQnaTotal" resultType="int">
@@ -42,43 +57,50 @@
   		<if test="searchType == 'title'">QNA_TITLE LIKE '%' ||#{searchName}||'%'</if>
   		<if test="searchType == 'writer'">QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
   		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		and
+  		<if test="listOrder == 'login'">qna_maincategori = 'login'</if>
+		<if test="listOrder == 'product'">qna_maincategori = 'product'</if>
+		<if test="listOrder == 'rental'">qna_maincategori = 'rental'</if>
+		<if test="listOrder == 'review'">qna_maincategori = 'review'</if>
+		<if test="listOrder == '' or listOrder == null">1 = 1</if>
 	</select>
   	
   	<select id="noticeGetList" resultMap="NoticeInfo" parameterType="hashMap">
   		<![CDATA[
-  		select a.*,
-  			   ni_no,
-  			   ni_path,
-  			   ni_name
-  		from ( select ROWNUM RN,
-		  			   notice_No,
-		  			   notice_Writer,
-		  			   notice_Title,
-		  			   notice_Content,
-		  			   notice_View,
-		  			   case when gap <= 60 THEN '방금전'
-		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-		  			   else to_char(notice_regdate, 'YYYY-MM-DD')
-		  			   end as notice_Regdate
-		  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
-		  				from notice
-		  				where
+  		select *
+  		from ( select a.*,
+		  			   ni_no,
+		  			   ni_path,
+		  			   ni_name
+		  		from ( select ROWNUM RN,
+				  			   notice_No,
+				  			   notice_Writer,
+				  			   notice_Title,
+				  			   notice_Content,
+				  			   notice_View,
+				  			   case when gap <= 60 THEN '방금전'
+				  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+				  			   else to_char(notice_regdate, 'YYYY-MM-DD')
+				  			   end as notice_Regdate
+				  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
+				  				from notice
+				  				where
 		]]>
-						<if test="searchType == '' or searchType == null">1 = 1</if>
-				  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
-				  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
-				  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+							<if test="searchType == '' or searchType == null">1 = 1</if>
+					  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
+					  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+					  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
 		<![CDATA[
-		  				order by
+		  					order by
   		]]>
-			  			<if test="orderType == '' or orderType == null">notice_no</if>
-			  			<if test="orderType == 'latestOrder'">notice_no</if>
-			  			<if test="orderType == 'viewOrder'">notice_view</if>
+				  			<if test="orderType == '' or orderType == null">notice_no</if>
+				  			<if test="orderType == 'latestOrder'">notice_no</if>
+				  			<if test="orderType == 'viewOrder'">notice_view</if>
   		<![CDATA[
-  		  				desc ) ) a left outer join notice_image i
-  		  				on a.notice_no = i.notice_no
-  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
-  		ORDER BY RN ASC
+		  		  				desc ) ) a left outer join notice_image i
+		  		  				on a.notice_no = i.notice_no
+		  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} )
+  		ORDER BY RN ASC, NI_NO ASC
   		]]>
   	</select>
   	
@@ -100,23 +122,24 @@
   	
   	<select id="faqGetList" resultMap="FaqInfo" parameterType="hashMap">
   		<![CDATA[
-  		select a.*,
-  			   fi_no,
-  			   fi_path,
-  			   fi_name
-  		from ( select ROWNUM RN,
-  					  faq_No,
-		  			  faq_Writer,
-		  			  faq_Title,
-		  			  faq_Content,
-		  			  faq_View,
-		  			   case when gap <= 60 THEN '방금전'
-		  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-		  			   else to_char(faq_regdate, 'YYYY-MM-DD')
-		  			   end as faq_Regdate
-		  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
-		  				from faq 
-		  				where
+  		select *
+  		from ( select a.*,
+		  			   fi_no,
+		  			   fi_path,
+		  			   fi_name
+		  		from ( select ROWNUM RN,
+		  					  faq_No,
+				  			  faq_Writer,
+				  			  faq_Title,
+				  			  faq_Content,
+				  			  faq_View,
+				  			   case when gap <= 60 THEN '방금전'
+				  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
+				  			   else to_char(faq_regdate, 'YYYY-MM-DD')
+				  			   end as faq_Regdate
+				  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
+				  				from faq 
+				  				where
   		]]>
 			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
 			  			<if test="listOrder == 'product'">faq_maincategori = 'product'</if>
@@ -124,23 +147,23 @@
 			  			<if test="listOrder == 'review'">faq_maincategori = 'review'</if>
 			  			<if test="listOrder == '' or listOrder == null">1 = 1</if>
 		<![CDATA[
-			  			AND
+			  					AND
 		]]>
 						<if test="searchType == '' or searchType == null">1 = 1</if>
 				  		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
 				  		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
 				  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
   		<![CDATA[		
-  						order by
+  								order by
   		]]>
 			  			<if test="orderType == '' or orderType == null">faq_no</if>
 			  			<if test="orderType == 'latestOrder'">faq_no</if>
 			  			<if test="orderType == 'viewOrder'">faq_view</if>
   		<![CDATA[
-  						desc ) ) a left outer join faq_image i
-  						on a.faq_no = i.faq_no
-  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
-  		ORDER BY RN ASC
+  								desc ) ) a left outer join faq_image i
+  								on a.faq_no = i.faq_no 
+  				where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} )
+  		ORDER BY RN ASC, FI_NO ASC
   		]]>
   	</select>
   	
@@ -160,17 +183,20 @@
   		<result property="fi_Name" column="FI_NAME" />
   	</resultMap>
   	
-  	<select id="qnaGetList" resultType="QnaVO">
+  	<select id="qnaGetList" resultMap="QnaInfo">
   		<![CDATA[
-  			select *
+  			select a.*,
+  				   qa.qa_No,
+  				   qa.qa_Writer,
+  				   qa.qa_Content
   			from ( select ROWNUM RN,
-		  				   a.qna_No,
-		  				   a.qna_Writer,
-		  				   a.qna_Title,
-		  				   a.qna_Content,
-		  				   a.qna_MainCategori,
-		  				   a.qna_Tow,
-		  				   a.qna_View,
+		  				   qna_No,
+		  				   qna_Writer,
+		  				   qna_Title,
+		  				   qna_Content,
+		  				   qna_MainCategori,
+		  				   qna_Tow,
+		  				   qna_View,
 		  				   case when gap <= 60 THEN '방금전'
 			  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
 			  			   else to_char(qna_regdate, 'YYYY-MM-DD')
@@ -198,11 +224,29 @@
 			  			<if test="orderType == '' or orderType == null">qna_no</if>
 			  			<if test="orderType == 'viewOrder'">qna_view</if>
   		<![CDATA[
-  						desc ) a )
+  						desc ) ) a left outer join qna_answer qa
+  						on a.qna_no = qa.qna_no
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
+  		ORDER BY RN ASC
   		]]>
-  		
   	</select>
+  	
+  	<resultMap type="QnaVO" id="QnaInfo">
+  		<result property="qna_No" column="QNA_NO" /> 
+  		<result property="qna_Writer" column="QNA_WRITER" />
+  		<result property="qna_Title" column="QNA_TITLE" />
+  		<result property="qna_Content" column="QNA_CONTENT" />
+  		<result property="qna_Tow" column="QNA_TOW" />
+  		<result property="qna_View" column="QNA_VIEW" />
+  		<result property="qna_Regdate" column="QNA_REGDATE" />
+  		<collection property="qnaAnswerList" resultMap="qnaAnswer" />
+  	</resultMap>
+  	
+  	<resultMap type="QnaAnswerVO" id="qnaAnswer">
+  		<result property="qa_No" column="QA_NO" />
+  		<result property="qa_Writer" column="QA_WRITER" />
+  		<result property="qa_Content" column="QA_CONTENT" />
+  	</resultMap>
   	
   	<update id="noticeView">
   		UPDATE NOTICE SET NOTICE_VIEW = NOTICE_VIEW + 1 WHERE NOTICE_NO = #{bno}
@@ -220,12 +264,24 @@
   		DELETE FROM NOTICE WHERE NOTICE_NO = #{bno}
   	</delete>
   	
+  	<delete id="noticeImageDelete">
+  		DELETE FROM NOTICE_IMAGE WHERE NOTICE_NO = #{bno}
+  	</delete>
+  	
   	<delete id="faqDelete">
   		DELETE FROM FAQ WHERE FAQ_NO = #{bno}
   	</delete>
   	
+  	<delete id="faqImageDelete">
+  		DELETE FROM FAQ_IMAGE WHERE FAQ_NO = #{bno}
+  	</delete>
+  	
   	<delete id="qnaDelete">
   		DELETE FROM QNA WHERE QNA_NO = #{bno}
+  	</delete>
+  	
+  	<delete id="qnaAnswerDelete">
+  		DELETE FROM QNA_ANSWER WHERE QNA_NO = #{bno}
   	</delete>
   	
   	<select id="getNoticeCurrent" resultType="int">
@@ -253,5 +309,81 @@
   	<insert id="faqImageUpload">
   		INSERT INTO FAQ_IMAGE VALUES(FAQ_IMAGE_SEQ.NEXTVAL, #{faq_No}, #{fi_Path}, #{fi_Name})
   	</insert>
-  
+  	
+  	<select id="getNoticeUpdateList" resultMap="NoticeUpdateList">
+  		SELECT N.NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NI_PATH, NI_NAME
+  		FROM NOTICE N LEFT OUTER JOIN NOTICE_IMAGE I ON N.NOTICE_NO = I.NOTICE_NO
+  		WHERE N.NOTICE_NO = #{bno}
+  		ORDER BY NI_NO ASC
+  	</select>
+  	
+  	<resultMap type="CsUpdateVO" id="NoticeUpdateList">
+  		<result property="no" column="NOTICE_NO" />
+  		<result property="writer" column="NOTICE_WRITER" />
+  		<result property="title" column="NOTICE_TITLE" />
+  		<result property="content" column="NOTICE_CONTENT" />
+  		<collection property="imageList" resultMap="NoticeUpdateImageList" />
+  	</resultMap>
+  	
+  	<resultMap type="NoticeImageVO" id="NoticeUpdateImageList">
+  		<result property="ni_Path" column="NI_PATH" />
+  		<result property="ni_Name" column="NI_NAME" />
+  	</resultMap>
+  	
+  	<select id="getFaqUpdateList" resultMap="FaqUpdateList">
+  		SELECT F.FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI, FI_PATH, FI_NAME
+  		FROM FAQ F LEFT OUTER JOIN FAQ_IMAGE I ON F.FAQ_NO = I.FAQ_NO
+  		WHERE F.FAQ_NO = #{bno}
+  		ORDER BY FI_NO ASC
+  	</select>
+  	
+  	<resultMap type="CsUpdateVO" id="FaqUpdateList">
+  		<result property="no" column="FAQ_NO" />
+  		<result property="writer" column="FAQ_WRITER" />
+  		<result property="title" column="FAQ_TITLE" />
+  		<result property="content" column="FAQ_CONTENT" />
+  		<result property="main_Categori" column="FAQ_MAINCATEGORI" />
+  		<collection property="imageList" resultMap="FaqUpdateImageList" />
+  	</resultMap>
+  	
+  	<resultMap type="NoticeImageVO" id="FaqUpdateImageList">
+  		<result property="ni_Path" column="FI_PATH" />
+  		<result property="ni_Name" column="FI_NAME" />
+  	</resultMap>
+  	
+  	<select id="getQnaUpdateList" resultMap="QnaUpdateList">
+  		SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW
+  		FROM QNA
+  		WHERE QNA_NO = #{bno}
+  	</select>
+  	
+  	<resultMap type="CsUpdateVO" id="QnaUpdateList">
+  		<result property="no" column="QNA_NO" />
+  		<result property="writer" column="QNA_WRITER" />
+  		<result property="title" column="QNA_TITLE" />
+  		<result property="content" column="QNA_CONTENT" />
+  		<result property="main_Categori" column="QNA_MAINCATEGORI" />
+  		<result property="tow" column="QNA_TOW" />
+  	</resultMap>
+  	
+  	<insert id="noticeImageUpdate">
+  		INSERT INTO NOTICE_IMAGE VALUES(NOTICE_IMAGE_SEQ.NEXTVAL, #{bno}, #{imgPath}, #{imgName})
+  	</insert>
+  	
+  	<insert id="faqImageUpdate">
+  		INSERT INTO FAQ_IMAGE VALUES(FAQ_IMAGE_SEQ.NEXTVAL, #{bno}, #{imgPath}, #{imgName})
+  	</insert>
+  	
+  	<update id="noticeUpdate">
+  		UPDATE NOTICE SET NOTICE_TITLE = #{title}, NOTICE_CONTENT = #{content}, NOTICE_UPDATEDATE = SYSDATE WHERE NOTICE_NO = #{no}
+  	</update>
+  	
+  	<update id="faqUpdate">
+  		UPDATE FAQ SET FAQ_TITLE = #{title}, FAQ_CONTENT = #{content}, FAQ_MAINCATEGORI = #{main_Categori}, FAQ_UPDATEDATE = SYSDATE WHERE FAQ_NO = #{no}
+  	</update>
+  	
+  	<update id="qnaUpdate">
+  		UPDATE QNA SET QNA_TITLE = #{title}, QNA_CONTENT = #{content}, QNA_MAINCATEGORI = #{main_Categori}, QNA_TOW = #{tow}, QNA_UPDATEDATE = SYSDATE WHERE QNA_NO = #{no}
+  	</update>
+  	
   </mapper>

@@ -1,0 +1,145 @@
+*{
+    font-family: 'Gothic A1', sans-serif;
+    font-style: italic;
+}
+
+.moveDetial, .moveDetial:link, .moveDetial:visited{
+    color: #000; 
+}
+
+.here {
+    text-align: left;
+    font-size: 30px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #CCC;
+    margin-top: 30px;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.mainBody{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    height: 600px;
+}
+
+.info {
+    overflow: hidden;
+    width:30%;
+    height:600px;
+    margin-left: 1%;
+    margin-right: 4%;
+    box-sizing: border-box;
+}
+
+/* �뒪�겕濡ㅻ컮 而ㅼ뒪�� : �룺*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* �뒪�겕濡ㅻ컮 而ㅼ뒪�� : �쐞�븘�옒 �솕�궡�몴*/
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+/* �뒪�겕濡ㅻ컮 而ㅼ뒪�� : �뒪�겕濡ㅻ컮*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #ccc;
+}
+
+.info-header {
+    overflow: hidden;
+    height: 10%;
+    padding-left: 20px;
+    font-size: 25px;
+    border-bottom: 1px solid cornflowerblue;
+    font-weight: bold
+}
+
+.kick-list {
+    list-style: none;
+    width: 100%;
+    height: 90%;
+    padding-left: 0px;
+    overflow-y: scroll;
+    /* �뒪�겕濡ㅻ컮�닲湲곌린 -IE and Edge
+    -ms-overflow-style: none;
+    Firefox
+    scrollbar-width: none;
+    */
+}
+/* �뒪�겕濡ㅻ컮�닲湲곌린 - Chrome, Safari, Opera
+.kick-list::-webkit-scrollbar {
+    display: none;
+}   
+*/
+.kick-info-list{
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+}
+.kick-info-list:hover {
+    background-color: #ccc;
+    width: 100%;
+}
+.mask {
+    font-size: 15px;
+    float: left;
+    width: 80%;
+}
+.kick-img {
+    width: 20%;
+    float: right;
+}
+
+
+.kick-info-detail{
+    display: none;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+.detail-fix{
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+.detail-info{
+    font-size: 15px;
+    float: left;
+    width: 70%;
+}
+.detail-img{
+    width: 30%;
+    float: right;
+}
+
+.spec {
+    width: 100%;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid cornflowerblue;
+}
+
+.btn-signature1 {
+    background-color: cornflowerblue;
+    color: white;
+    box-sizing: border-box;
+    margin-left: 1%;
+    width: 47%;
+}
+.btn-signature2 {
+    background-color:  rgb(171, 188, 227);
+    color: white;
+    box-sizing: border-box;
+    margin-right: 1%;
+    width: 47%;
+}

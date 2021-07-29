@@ -1,5 +1,7 @@
 package com.erproject.command;
 
+import java.util.ArrayList;
+
 public class UserVO {
 	
 	private String userId;
@@ -17,7 +19,21 @@ public class UserVO {
 	private String addrZipNum;
 	private String addrBasic;
 	private String addrDetail;
+
+	/*보드*/
+	private ArrayList<QnaVO> qnaList;
+	private ArrayList<ProductReviewVO> proReList;
+
+	public ArrayList<ProductReviewVO> getProReList() {
+		return proReList;
+	}
+
+	public void setProReList(ArrayList<ProductReviewVO> proReList) {
+		this.proReList = proReList;
+	}
 	
+
+
 	public UserVO() {
 		
 	}
@@ -133,6 +149,21 @@ public class UserVO {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
+
+
+	public ArrayList<QnaVO> getQnaList() {
+		return qnaList;
+	}
+
+	public void setQnaList(ArrayList<QnaVO> qnaList) {
+		this.qnaList = qnaList;
+	}
+
+
+	
+	
+
+	
 	
 	
 

@@ -81,3 +81,25 @@ form textarea {
     background-color: rgb(171, 188, 227);
     border: none;
 }
+
+/* csBoardUpdate 페이지 디자인 */
+label.file {
+	text-align: center;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 3px;
+    font-size: 15px;
+}
+
+input[type="file"] {
+    display: block;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

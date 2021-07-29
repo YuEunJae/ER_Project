@@ -4,8 +4,6 @@ Notice/
 FAQ/
 
 ## 파일 무시
-hikari.properties
-web.xml
-APP_CONSTANT.java
+.settings
 
-target/
+/target

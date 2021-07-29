@@ -13,9 +13,10 @@ h2 {
 }
 
 p {
-    text-align: center;
     margin: 0 0 10px;
+    text-align: center;
 }
+
 a:hover, a:focus {
     text-decoration: none;
 }
@@ -27,53 +28,60 @@ select {
     height: 31px;
 }
 
-/* 최신글, 조회순 */
-.box1 {
+.media {
+	margin: 0 !important;
+}
+
+.media-body {
+	margin-left: 2 !important;	
+}
+
+.media-object {
+	margin: 10px 10px;	
+}
+
+.review-item {
+	width: 90%;
+	border: 1px solid lightgray;
+	border-radius: 2px;
+	margin: 5px;
+}
+
+.photo {
     text-align: center;
 }
 
-.list-option {
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
+.photoBno {
+	text-align: right;
+	font-size: 15px;
+	color: gray;
 }
 
-.list-option > select {
-    width: 220px;
-    height: 30px;
+.photo-image {
+	width: 200px;
+	height: 200px;
 }
 
-.list-categori > select {
-    width: 220px;
-    height: 30px;
+.photo-title {
+    text-align: left;
+    font-size: 25px;
+    font-weight: bold;
 }
 
-.search > select {
-    width: 220px;
-    height: 30px;
+.photoStar {
+	text-align: right;
+	color: red;
+	font-size: 12px
 }
 
-/* 대분류 */
-.list-categori {
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
+.photoContent {
+	height: 100px;
+	font-size: 12px;
 }
 
-/* 검색  */
-.search {
-    display: inline-block;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom : 10px;
-}
-
-
-.btn-signature1 {
-    float: right;
-    color: white;
-    background-color: cornflowerblue;
-    border: none;
+.photoWriter {
+	font-size: 13px;
+	text-align: right;
 }
 
 .btn-signature2 {
@@ -100,40 +108,24 @@ select {
     margin-bottom: 50px;
 }
 
-.paging {
-    display: block;
-}
-
-.paging > li {
-    display:inline-block;
-    border-radius: 0px;
-    border: 1px solid cornflowerblue;
-    padding: 5px 10px;
-}
-
-.paging > li > a {
-    color:cornflowerblue;
-    font-weight: 600;
-}
-
-.paging > li.num {
-    color: #fff;
-    border-radius: 100px;
-}
-
-.paging > li.num > a {
-    color: cornflowerblue;
-}
-
-.paging > li > a {
-    text-align: right;
-}
 
 .titlebox {
 	width: 250px;
 	text-align: center;
     font-size: 20px;
     font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	margin: 70px auto;
+	border-top: 1px solid #E1E1E1;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+.titlebox1 {
+	width: 250px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
 	height: 40px;
 	line-height: 40px;
 	margin: 70px auto;
@@ -173,4 +165,18 @@ select {
 .t-title {
     font-size: 15px;
     font-weight: bold;
+}
+
+.photo-image {
+    width: 200px;
+    height: 250px;
+}
+
+.photo-image img {
+    width: 180px;
+    height: 180px;
+}
+
+.btn-regist {
+	margin-top: 50px;
 }

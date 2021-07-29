@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ 
+   <script src="${pageContext.request.contextPath}/resources/js/qrcode.js"></script>
  
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user.css">
+
 
 
 <section>
@@ -18,7 +22,7 @@
 					class="glyphicon glyphicon-info-sign tab-title">내정보수정</a></li>
 
 				<li><a data-toggle="tab" href="#info2"
-					class="glyphicon glyphicon-ok-sign tab-title">포토리뷰</a></li>
+					class="glyphicon glyphicon-ok-sign tab-title">QR인증</a></li>
 				<li><a data-toggle="tab" href="#info3"
 					class="glyphicon glyphicon-ok-sign tab-title">나의리뷰</a></li>
 				<li><a data-toggle="tab" href="#info4"
@@ -66,15 +70,18 @@
 
 								<div class="join-group">
 									<label>Phone number</label> <input type="text"
-										class="form-control" name="userPhone"
-										value=${userInfo.userPhone } placeholder="010XXXXXXXX">
+										class="form-control" name="userPhone" value="${userInfo.userPhone }" placeholder="010XXXXXXXX">
 								</div>
 
 								<div class="join-group">
 									<label for="email">Email</label><br />
 									<div class="email-group">
+									
+									<input type="text" class="form-control" id="email" name="userEmail" readonly value="${userInfo.userEmail }" placeholder="">
+									
+									<%-- 
 										<input type="text" class="form-control email-left"
-											name="userEmail1" id="email"> <select
+											name="userEmail1" id="email" value="${userInfo.userEmail }"> <select
 											class="form-control email-right" name="userEmail2">
 											<option>@naver.com</option>
 											<option>@daum.net</option>
@@ -82,7 +89,7 @@
 											<option>@hanmail.com</option>
 
 
-										</select>
+										</select> --%>
 									</div>
 
 								</div>
@@ -103,10 +110,6 @@
 								</div>
 							</form>
 
-
-
-
-
 							<div class="page-btn">
 								<button type="button" class="btn btn-default mypageBtn2"
 									data-toggle="modal" data-target="#myModal">Drop out</button>
@@ -121,8 +124,13 @@
 
 
 
+				<form action="userDelete" method="post">
+				
 				<div class="modal fade" id="myModal" role="dialog">
 					<div class="modal-dialog">
+					
+					<input type="hidden" name="userId" value="${userVO.userId }">
+					
 
 						<div class="modal-content">
 							<div class="modal-header">
@@ -134,11 +142,11 @@
 								<p>${userInfo.userId}님 탈퇴 하시려면 해당 아이디의 비밀번호를 입력해주세요</p>
 
 								<label>Password</label> <input type="password"
-									class="form-control" id="delPw" name="delPw">
+									class="form-control" id="Pw" name="userPw">
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" id="delBtn">탈퇴하기</button>
+								<button type="submit" class="btn btn-default">탈퇴하기</button>
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">닫기</button>
 
@@ -147,74 +155,43 @@
 
 					</div>
 				</div>
+				</form>
 
 
 
 
 				<div id="info2" class="tab-pane fade">
-					<div class="info-title">
-						<p>포토리뷰</p>
+					<div class="info-title" style="margin-bottom:30px">
+						<p>QR인증</p>
+					</div>
+					
+					<div style="margin-bottom:20px;">
+						<p style="text-align:center; font-size:1.2em;">캥거루 QR code 로 편하게 체크인 하세요 !</p>
 					</div>
 
 					<div class="tab-post">
-
-						<table class="table table-hover info-table">
-							<thead>
-								<tr>
-									<th class="checkBox"><input id="allCheck" type="checkbox" name="allCheck"></th>
-									<th class="listBox">Bno</th>
-									<th>Title</th>
-									<th class="listBox">ID</th>
-									<th class="listBox">Reply</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">3</td>
-									<td>안녕하세요~ 추천드려요~</td>
-									<td class="listBox">Bolt</td>
-									<td class="listBox">3</td>
-
-								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox"
-										name="RowCheck"></td>
-									<td class="listBox">2</td>
-									<td>만족스러운 서비스! 딸아이가 좋아해요</td>
-									<td class="listBox">mommy</td>
-									<td class="listBox">2</td>
-
-								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox"
-										name="RowCheck"></td>
-									<td class="listBox">1</td>
-									<td>최고에용~</td>
-									<td class="listBox">booool</td>
-									<td class="listBox">1</td>
-
-								</tr>
-
-							</tbody>
-						</table>
-
-						<div class="page-btn">
-							<button type="submit" class="btn qnaBtn">Delete</button>
-						</div>
-
+					<div id="qrcode" style="text-align:center"></div>
+					
 
 					</div>
 
+						
+
 				</div>
+				
+				
+				<script type="text/javascript">
+			    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      		        text: "전화번호:+'${userInfo.userPhone}' +이름: '${userInfo.userName}' + '${userInfo.userEmail}'",
+			        width: 300,
+			        height: 300,
+			        colorDark : "#000000",
+			        colorLight : "#ffffff",
+			        correctLevel : QRCode.CorrectLevel.H
+			    });
+			    
+			    $("#qrcode > img").css({"margin" : "auto"});
+				</script>
 
 
 
@@ -222,7 +199,9 @@
 					<div class="info-title">
 						<p>나의리뷰</p>
 					</div>
-
+					
+					
+					<form action="checkDelete" method="oost">
 					<div class="tab-post">
 
 						<table class="table table-hover info-table">
@@ -232,96 +211,73 @@
 									<th class="listBox">Bno</th>
 									<th>Title</th>
 									<th class="listBox">ID</th>
-									<th class="listBox">Reply</th>
+									<th class="listBox">Product Code</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">2</td>
-									<td>안녕하세요~ 추천드려요~</td>
-									<td class="listBox">Bolt</td>
-									<td class="listBox">3</td>
-
-								</tr>
-
-							</tbody>
+				
 
 							<tbody>
+							<c:forEach var="vo" items="${userInfo2.proReList}">	
 								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">1</td>
-									<td>만족스러운 서비스! 딸아이가 좋아해요</td>
-									<td class="listBox">mommy</td>
-									<td class="listBox">1</td>
+									<td class="checkBox"><input type="checkbox" name="RowCheck" value="${vo.rno}"></td>
+									<td class="listBox">${vo.rno}</td>
+									<td>${vo.title}</td>
+									<td class="listBox">${vo.writer}</td>
+									<td class="listBox">${vo.pcode }</td>
 
 								</tr>
+								
+								</c:forEach>
 
 							</tbody>
+							
 						</table>
 
 						<div class="page-btn">
 							<button type="submit" class="btn  qnaBtn">Delete</button>
 						</div>
+						</form>
 
 
 					</div>
 
 				</div>
-
+				
+				
 				<div id="info4" class="tab-pane fade">
 					<div class="info-title">
 						<p>나의문의</p>
 					</div>
-
+					
+					<form action="checkDelete" method="post">
 					<div class="tab-post">
-
+					
+					
 						<table class="table table-hover info-table">
 							<thead>
-								<tr>
+								<tr class="boxList">
 									<th class="checkBox"><input id="allCheck" type="checkbox" name="allCheck"></th>
 									<th class="listBox">Bno</th>
 									<th>Title</th>
-									<th class="listBox">Answer</th>
+								    <th class="listBox">Answer</th>
 								</tr>
 							</thead>
 							<tbody>
+							    <c:forEach var="vo" items="${userInfo.qnaList}">	
 								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">3</td>
-									<td>배송언제되나요</td>
-									<td class="listBox">미확인</td>
-
+									<td class="checkBox"><input type="checkbox" name="RowCheck" value="${vo.qna_No }" ></td>
+									<td class="listBox">${vo.qna_No}</td>
+									<td><a href=""></a>${vo.qna_Title }</td>
+									<td class="listBox">${vo.qna_IsAnswer}</td> 
 								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">2</td>
-									<td>회원탈퇴하고싶습니다</td>
-									<td class="listBox">답변완료</td>
-
-								</tr>
-
-							</tbody>
-
-							<tbody>
-								<tr class="boxList">
-									<td class="checkBox"><input type="checkbox" name="RowCheck"></td>
-									<td class="listBox">1</td>
-									<td>연령제한이있나요?</td>
-									<td class="listBox">답변완료</td>
-
-								</tr>
-
+								</c:forEach> 
 							</tbody>
 						</table>
 
 						<div class="page-btn">
 							<button type="submit" class="btn qnaBtn">Delete</button>
 						</div>
+						</form>
 
 
 
@@ -330,8 +286,11 @@
 				</div>
 </section>
 
+
 <script>
-                   $(function(){
+
+//전체체크하는 법 
+                      $(function(){
                 	   var chkObj = document.getElementsByName("RowCheck");
                 	   var rowcount =chkObj.length;
                 	   
@@ -349,8 +308,22 @@
                 	   
                 	   
                    })
-                   </script>
+</script>
 
+
+<script>
+
+
+
+
+
+
+</script>
+
+
+
+
+       
 <script>
 
             //비밀번호 검사
@@ -412,9 +385,20 @@
 			document.getElementById("addrZipNum").value = zipNo;
 	}
 </script>
-    
-
   
-    </script>
+  
+
+	
+<script>
+    
+    	window.onload = function() {
+    		var msg = "${msg}";
+    		if(msg != "") {
+    			alert(msg);
+    		}
+    		
+    	}
+    	
+</script>
 
      

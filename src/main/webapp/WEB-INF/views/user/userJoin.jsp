@@ -5,9 +5,9 @@
 
 
 
-    <section>
+    <section class="login-big-group">
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-bottom:15px;">
                 <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 join-form">
 
                     <div class="info-title">
@@ -19,7 +19,7 @@
                         <div class="join-group">
                             <label>ID</label>
                             <div class="j-group">
-                                <input type="text" autocomplete="off" class="form-control j-left" placeholder="4~12 길이의 영소문자를 이용한 아이디를 입력하세요" name=userId id="userId">  
+                                <input type="text" autocomplete="off" class="form-control j-left" placeholder="4~12 길이의 영소문자를 이용한 아이디를 입력하세요" name=userId id="userId" required>  
                                 <button class="btn CheckBtn" type="button" id="idCheck">Check ID</button>
                             </div>
                             <span id="msgId"></span>
@@ -30,13 +30,13 @@
 
                         <div class="join-group">
                             <label>Password</label>
-                            <input type="password" autocomplete="off" class="form-control" placeholder="8~16 길이의 영소문자를 이용한 패스워드를 입력하세요" name="userPw" id="userPw" style="margin-bottom: 5px;"> 
+                            <input type="password" autocomplete="off" class="form-control" placeholder="8~16 길이의 영소문자와 숫자를 이용한 패스워드를 입력하세요" name="userPw" id="userPw" style="margin-bottom: 5px;" required> 
                         </div>
                         <span id="msgPw"></span>
 
                         <div class="join-group">
                             <label>Password Check</label>
-                            <input type="password" autocomplete="off" class="form-control" placeholder="" name="pwCheck" id="pwCheck" style="margin-bottom: 5px;"> 
+                            <input type="password" autocomplete="off" class="form-control" placeholder="" name="pwCheck" id="pwCheck" style="margin-bottom: 5px;" required> 
                         </div>
                         <span id="msgPw-c"></span>
 
@@ -96,6 +96,18 @@
         </div>
 
     </section>
+    <script>
+    
+    	window.onload = function() {
+    		var msg = "${msg}";
+    		if(msg != "") {
+    			alert(msg);
+    		}
+    		
+    	}
+    	
+    </script>
+
 
     <script>
         /*아이디중복검사*/
@@ -128,7 +140,11 @@
         var pw = document.getElementById("userPw");
         var msgPw =document.getElementById("msgPw");
             pw.onkeyup = function () {
-                var regex = /^[A-Za-z0-9+]{8,16}$/;
+            	
+            	
+            	var regex = /^[A-Za-z0-9+]{8,16}$/;
+            	
+
                 if (regex.test(pw.value)) {
                     pw.style.borderColor = "cornflowerblue";
                     msgPw.innerHTML = "사용가능한 패스워드입니다";
@@ -149,7 +165,7 @@
             var pwCheck = document.getElementById("pwCheck");
             
             pwCheck.onkeyup = function () {
-                var regex = /^[A-Za-z0-9+]{8,16}$/;
+            	var regex = /^[A-Za-z0-9+]{8,16}$/;
                 if (pwCheck.value == document.getElementById("userPw").value) {
                     pwCheck.style.borderColor = "cornflowerblue";
                     document.getElementById("msgPw-c").style.color="cornflowerblue";

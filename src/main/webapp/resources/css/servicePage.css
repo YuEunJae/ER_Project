@@ -1,4 +1,4 @@
-/* 1. 웹폰트 선언 */
+/* 1. �쎒�룿�듃 �꽑�뼵 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 @font-face {
@@ -6,36 +6,36 @@
   font-family: "Aria";
 }
 
-/* 2. 디자인 시작시 기본 선언 */
+/* 2. �뵒�옄�씤 �떆�옉�떆 湲곕낯 �꽑�뼵 */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 body, html {
-    font-family: 'Noto Sans KR', sans-serif;/* 웹폰트 적용 */
+    font-family: 'Noto Sans KR', sans-serif;/* �쎒�룿�듃 �쟻�슜 */
     width: 100%;
     min-width: 320px; 
 }
 
 img {
-    max-width: 100%;/* 사이즈가 변했을 때 넓이 유지 */
-    height: auto; /* 넓이에 따라 높이가 변함 */
+    max-width: 100%;/* �궗�씠利덇� 蹂��뻽�쓣 �븣 �꼻�씠 �쑀吏� */
+    height: auto; /* �꼻�씠�뿉 �뵲�씪 �넂�씠媛� 蹂��븿 */
 }
 
 input, textarea, button, select {
-    -webkit-appearance: none; /* 브라우저별로 고유하게 적용되는 form관련요소들의 css제거 */
+    -webkit-appearance: none; /* 釉뚮씪�슦��蹂꾨줈 怨좎쑀�븯寃� �쟻�슜�릺�뒗 form愿��젴�슂�냼�뱾�쓽 css�젣嫄� */
     -moz-appearance: none;
     -o-appearance: none;
 
 }
 
 ul, li, dl, ol {
-    list-style: none; /* 순서요소들의 리스트스타일 제거 */
+    list-style: none; /* �닚�꽌�슂�냼�뱾�쓽 由ъ뒪�듃�뒪���씪 �젣嫄� */
 }
 
 
-/* 첫번째 섹션 */
+/* 泥ル쾲吏� �꽮�뀡 */
 .servicepage-s1 {
   background-image: url('../img/home.jpg');
   background-size: cover;
@@ -95,7 +95,7 @@ ul, li, dl, ol {
   font-family: "Aria";
   font-size: 300%;
   color: #fff;
-  /* 글씨 테두리 */
+  /* 湲��뵪 �뀒�몢由� */
   /* text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue; */
 }
 
@@ -115,7 +115,7 @@ ul, li, dl, ol {
 } */
 
 
-/* 두번째 섹션 */
+/* �몢踰덉㎏ �꽮�뀡 */
 .servicepage-s3 {
   text-align: center;
 }
@@ -137,10 +137,11 @@ ul, li, dl, ol {
 
 .s3-content > strong{
   font-size: 2em;
+  margin-bottom: 10px;
 }
 
 
-/* 세번째 섹션 */
+/* �꽭踰덉㎏ �꽮�뀡 */
 .s2-management {
   text-align: center;
 }
@@ -178,10 +179,11 @@ ul, li, dl, ol {
 
 }
 
-/* 네번째 섹션 */
+/* �꽕踰덉㎏ �꽮�뀡 */
 
 .servicepage-s4 {
   text-align: center;
+  position: relative;
 }
 
 .s4-strong {
@@ -191,19 +193,20 @@ ul, li, dl, ol {
 }
 
 .s4-top {
-  margin-top: 300px;
+  margin-top: 200px;
   margin-bottom: 20px;
 }
 
 .s4-middle {
   overflow: hidden;
   width: 500px;
-  height: 80%;
+  height: 50%;
   display: inline-block;
   /* border: 1px solid #777; */
   /* box-shadow: 0 0.2rem 0.4rem 0 rgb(0 0 0 / 25%); */
   border-radius: 1rem 1rem 0 0;
   /* background-color: #fff; */
+  margin-bottom: 200px 
 }
 
 .s4-p {
@@ -224,14 +227,79 @@ ul, li, dl, ol {
   color: #fff;
 }
 
-/* 다섯번째 섹션 */
+
+
+
+/* �뒪�겕濡ㅻ컮 �꽕�젙*/
+.s4-content::-webkit-scrollbar{
+  width: 5px;
+}
+
+/* �뒪�겕濡ㅻ컮 留됰� �꽕�젙*/
+.s4-content::-webkit-scrollbar-thumb{
+  height: 17%;
+  background-color: rgba(255,255,255,1);
+  border: 1px solid #87CEFA;
+  /* �뒪�겕濡ㅻ컮 �뫁湲�寃� �꽕�젙    */
+  border-radius: 10px;    
+}
+
+/* �뒪�겕濡ㅻ컮 �뮮 諛곌꼍 �꽕�젙*/
+.s4-content::-webkit-scrollbar-track{
+  background-color: rgba(0,0,0,0);
+}
+
+
+.s4-input {
+  overflow: hidden;
+}
+
+
+.s4-mesege {
+  width: 70%;
+  height: 66px;
+  float: left;
+  border: 1px solid #87CEFA;
+}
+
+.s4-mesege:hover {
+  border: 1px solid cornflowerblue;
+}
+
+.s4-mesege:focus {
+  outline: 1px solid cornflowerblue;
+}
+
+#s4-btn {
+  width: 30%;
+  float: left;
+  height: 66px;
+  background-color: #87CEFA;
+  color: #fff;
+  border: 1px solid cornflowerblue;
+  border-left:
+  
+  font-size: 15px;
+  font-weight: 1000;
+
+}
+
+.s4-btn2 {
+	margin-bottom: 100px;
+}
+
+
+
+
+
+/* �떎�꽢踰덉㎏ �꽮�뀡 */
 .servicepage-s5 {
   text-align: center;
 }
 
 .s5-top {
   font-size: 4em;
-  margin-bottom: 70px;
+  margin-bottom: 30px;
   font-family: "Aria";
 }
 
@@ -272,7 +340,7 @@ ul, li, dl, ol {
   vertical-align: middle;
 }
 
-/* 마지막 섹션 */
+/* 留덉�留� �꽮�뀡 */
 .servicepage-s6 {
   background-image: url('../img/wall.jpg');
   background-size: cover;
@@ -290,5 +358,114 @@ ul, li, dl, ol {
   width: 1100px;
   height: 500px;
 }
+
+
+
+
+
+/* 梨꾪똿2 */
+
+.servicepage-s7 {
+  text-align: center;
+  position: relative;
+  z-index: 20;
+}
+
+
+.s4-bottom {
+  
+  display: none;
+  width: 800px;
+  height: 600px;
+  border: 1x solid #87CEFA;
+  opacity: 0;
+  position: absolute;
+  bottom: 150px;
+  right: 30%;
+  margin-left: 600px;
+  
+
+}
+
+#s4-close {
+	color: #fff;
+	background-color: #87CEFA;
+	width: 100px;
+	height: 50px;
+	margin-bottom: 20px;
+	border-radius: 1ch;
+	border: 1px solid #87CEFA;
+}
+
+#s4-close:hover {
+	background-color: cornflowerblue;
+}
+
+
+.s4-title {
+  background-color: #87CEFA;
+  color: #fff;
+}
+
+.s4-content {
+  background-color: #fff;
+  height: 70%;
+  width: 100%;
+  border: 1px solid #87CEFA;
+  overflow: scroll;
+  text-align: left;
+
+}
+
+.s4-input {
+  overflow: hidden;
+}
+
+.s7-title {
+  font-size: 4em;
+  margin-bottom: 50px;
+  font-family: "Aria";
+}
+
+.s4-chat1 {
+  border: 1px solid #87CEFA;
+  width: 388px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 1ch;
+  padding-left: 10px;
+  margin-left: 6px;
+}
+
+.s4-chat2 {
+  margin-left: 400px;
+  border: 1px solid #1E90FF;
+  width: 388px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 1ch;
+  padding-left: 10px
+
+}
+
+#s7btn1, #s7btn2, #s7btn3   {
+	width: 250px;
+	height: 100px;
+	background-color: #87CEFA;
+	border-radius: 1rem;
+	border: 1px solid #fff;
+	color: #fff;
+	font-size: 1.7em;
+	
+}
+
+#s7btn1:hover, #s7btn2:hover, #s7btn3:hover {
+	background-color: cornflowerblue;
+}
+
+
+
+
+
 
 
