@@ -6,23 +6,23 @@
   <mapper namespace="com.erproject.csboard.mapper.CsBoardMapper">
   
   	<insert id="noticeRegist">
-  		insert into NOTICE(NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW)
-  					VALUES(NOTICE_SEQ.NEXTVAL, #{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
+  		insert into NOTICE(NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW)
+  					VALUES(#{notice_Writer}, #{notice_Title}, #{notice_Content}, #{notice_View})
   	</insert>
   	
   	<insert id="faqRegist">
-  		insert into FAQ(FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
-  					VALUES(FAQ_SEQ.NEXTVAL, #{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
+  		insert into FAQ(FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_MAINCATEGORI)
+  					VALUES(#{faq_Writer}, #{faq_Title}, #{faq_Content}, #{faq_MainCategori})
   	</insert>
   	
   	<insert id="qnaRegist">
-  		insert into QNA(QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW)
-  					VALUES(QNA_SEQ.NEXTVAL, #{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
+  		insert into QNA(QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW)
+  					VALUES(#{qna_Writer}, #{qna_Title}, #{qna_Content}, #{qna_MainCategori}, #{qna_Tow})
   	</insert>
   	
   	<insert id="qnaAnswerRegist">
-  		insert into QNA_ANSWER(QA_NO, QNA_NO, QA_WRITER, QA_CONTENT)
-  					VALUES(QNA_ANSWER_SEQ.NEXTVAL, #{qna_No}, #{qa_Writer}, #{qa_Content})
+  		insert into QNA_ANSWER(QNA_NO, QA_WRITER, QA_CONTENT)
+  					VALUES(#{qna_No}, #{qa_Writer}, #{qa_Content})
   	</insert>
   	
   	<update id="qnaAnswerUpdate">
@@ -30,77 +30,77 @@
   	</update>
   	
   	<select id="getNoticeTotal" resultType="int">
-  		select count(*) as total from notice where
+  		SELECT COUNT(*) AS TOTAL FROM NOTICE WHERE
   		<if test="searchType == '' or searchType == null">1 = 1</if>
-  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
-  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
-  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+  		<if test="searchType == 'title'">NOTICE_TITLE LIKE CONCAT('%', #{searchName},'%') </if>
+  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE CONCAT('%', #{searchName},'%') OR NOTICE_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
   	</select>
   	
   	<select id="getFaqTotal" resultType="int">
-  		select count(*) as total from faq where
+  		SELECT COUNT(*) AS TOTAL FROM FAQ WHERE
   		<if test="searchType == '' or searchType == null">1 = 1</if>
-  		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
-  		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
-  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
-  		and
-  		<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
-		<if test="listOrder == 'product'">faq_maincategori = 'product'</if>
-		<if test="listOrder == 'rental'">faq_maincategori = 'rental'</if>
-		<if test="listOrder == 'review'">faq_maincategori = 'review'</if>
+  		<if test="searchType == 'title'">FAQ_TITLE LIKE CONCAT('%', #{searchName},'%')</if>
+  		<if test="searchType == 'writer'">FAQ_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE CONCAT('%', #{searchName},'%') OR FAQ_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+  		AND
+  		<if test="listOrder == 'login'">FAQ_MAINCATEGORI = 'login'</if>
+		<if test="listOrder == 'product'">FAQ_MAINCATEGORI = 'product'</if>
+		<if test="listOrder == 'rental'">FAQ_MAINCATEGORI = 'rental'</if>
+		<if test="listOrder == 'review'">FAQ_MAINCATEGORI = 'review'</if>
 		<if test="listOrder == '' or listOrder == null">1 = 1</if>
 	</select>
 	
 	<select id="getQnaTotal" resultType="int">
-		select count(*) as total from qna where
+		SELECT COUNT(*) AS TOTAL FROM QNA WHERE
 		<if test="searchType == '' or searchType == null">1 = 1</if>
-  		<if test="searchType == 'title'">QNA_TITLE LIKE '%' ||#{searchName}||'%'</if>
-  		<if test="searchType == 'writer'">QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
-  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
-  		and
-  		<if test="listOrder == 'login'">qna_maincategori = 'login'</if>
-		<if test="listOrder == 'product'">qna_maincategori = 'product'</if>
-		<if test="listOrder == 'rental'">qna_maincategori = 'rental'</if>
-		<if test="listOrder == 'review'">qna_maincategori = 'review'</if>
+  		<if test="searchType == 'title'">QNA_TITLE LIKE CONCAT('%', #{searchName},'%')</if>
+  		<if test="searchType == 'writer'">QNA_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE CONCAT('%', #{searchName},'%') OR QNA_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+  		AND
+  		<if test="listOrder == 'login'">QNA_MAINCATEGORI = 'login'</if>
+		<if test="listOrder == 'product'">QNA_MAINCATEGORI = 'product'</if>
+		<if test="listOrder == 'rental'">QNA_MAINCATEGORI = 'rental'</if>
+		<if test="listOrder == 'review'">QNA_MAINCATEGORI = 'review'</if>
 		<if test="listOrder == '' or listOrder == null">1 = 1</if>
 	</select>
   	
   	<select id="noticeGetList" resultMap="NoticeInfo" parameterType="hashMap">
   		<![CDATA[
-  		select *
-  		from ( select a.*,
-		  			   ni_no,
-		  			   ni_path,
-		  			   ni_name
-		  		from ( select ROWNUM RN,
-				  			   notice_No,
-				  			   notice_Writer,
-				  			   notice_Title,
-				  			   notice_Content,
-				  			   notice_View,
-				  			   case when gap <= 60 THEN '방금전'
-				  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-				  			   else to_char(notice_regdate, 'YYYY-MM-DD')
-				  			   end as notice_Regdate
-				  		 from ( select notice_no, notice_writer, notice_title, notice_content, notice_view, notice_regdate, trunc( (sysdate - notice_regdate) * 24 * 60 ) as gap
-				  				from notice
-				  				where
+  		SELECT *
+  		FROM ( SELECT B.*,
+		  			   NI_NO,
+		  			   NI_PATH,
+		  			   NI_NAME
+		  		from ( SELECT @ROWNUM := @ROWNUM + 1 RN,
+				  			   NOTICE_NO,
+				  			   NOTICE_WRITER,
+				  			   NOTICE_TITLE,
+				  			   NOTICE_CONTENT,
+				  			   NOTICE_VIEW,
+				  			   CASE WHEN gap <= 60 THEN '방금전'
+				  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
+				  			   ELSE DATE_FORMAT(NOW(), '%Y-%m-%D')
+				  			   END AS NOTICE_REGDATE
+				  		 FROM ( SELECT NOTICE_NO, NOTICE_WRITER, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_VIEW, NOTICE_REGDATE, TRUNCATE( (NOW() - NOTICE_REGDATE) / 60, 0 ) AS gap
+				  				FROM NOTICE
+				  				WHERE
 		]]>
 							<if test="searchType == '' or searchType == null">1 = 1</if>
-					  		<if test="searchType == 'title'">NOTICE_TITLE LIKE '%'||#{searchName}||'%' </if>
-					  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
-					  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE '%'||#{searchName}||'%'OR NOTICE_WRITER LIKE '%'||#{searchName}||'%'</if>
+					  		<if test="searchType == 'title'">NOTICE_TITLE LIKE CONCAT('%', #{searchName},'%') </if>
+					  		<if test="searchType == 'writer'">NOTICE_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+					  		<if test="searchType == 'tiwri'">NOTICE_TITLE LIKE CONCAT('%', #{searchName},'%') OR NOTICE_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
 		<![CDATA[
-		  					order by
+		  					ORDER BY
   		]]>
-				  			<if test="orderType == '' or orderType == null">notice_no</if>
-				  			<if test="orderType == 'latestOrder'">notice_no</if>
-				  			<if test="orderType == 'viewOrder'">notice_view</if>
+				  			<if test="orderType == '' or orderType == null">NOTICE_NO</if>
+				  			<if test="orderType == 'latestOrder'">NOTICE_NO</if>
+				  			<if test="orderType == 'viewOrder'">NOTICE_VIEW</if>
   		<![CDATA[
-		  		  				desc ) ) a left outer join notice_image i
-		  		  				on a.notice_no = i.notice_no
-		  		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} )
-  		ORDER BY RN ASC, NI_NO ASC
+		  		  				DESC ) A ) B LEFT OUTER JOIN NOTICE_IMAGE I
+		  		  				ON  B.NOTICE_NO = I.NOTICE_NO, (SELECT @ROWNUM := 0) C 
+		  		WHERE RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} ) D
+  		ORDER BY RN ASC, NI_NO ASC 
   		]]>
   	</select>
   	
@@ -122,47 +122,48 @@
   	
   	<select id="faqGetList" resultMap="FaqInfo" parameterType="hashMap">
   		<![CDATA[
-  		select *
-  		from ( select a.*,
-		  			   fi_no,
-		  			   fi_path,
-		  			   fi_name
-		  		from ( select ROWNUM RN,
-		  					  faq_No,
-				  			  faq_Writer,
-				  			  faq_Title,
-				  			  faq_Content,
-				  			  faq_View,
-				  			   case when gap <= 60 THEN '방금전'
-				  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-				  			   else to_char(faq_regdate, 'YYYY-MM-DD')
-				  			   end as faq_Regdate
-				  		from ( select faq_no, faq_writer, faq_title, faq_content, faq_view, faq_maincategori, faq_Regdate, trunc( (sysdate - faq_regdate) * 24 * 60 ) as gap
-				  				from faq 
-				  				where
+  		SELECT *
+  		FROM ( SELECT B.*,
+		  			   FI_NO,
+		  			   FI_PATH,
+		  			   FI_NAME
+		  		from ( SELECT @ROWNUM := @ROWNUM + 1 RN,
+		  					  FAQ_NO,
+				  			  FAQ_WRITER,
+				  			  FAQ_TITLE,
+				  			  FAQ_CONTENT,
+				  			  FAQ_MAINCATEGORI,
+				  			  FAQ_VIEW,
+				  			   CASE when gap <= 60 THEN '방금전'
+				  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
+				  			   ELSE DATE_FORMAT(FAQ_REGDATE, '%Y-%m-%D')
+				  			   END AS FAQ_REGDATE
+				  		from ( SELECT FAQ_NO, FAQ_WRITER, FAQ_TITLE, FAQ_CONTENT, FAQ_VIEW, FAQ_MAINCATEGORI, FAQ_REGDATE, TRUNCATE( (NOW() - FAQ_REGDATE) / 60, 0 ) AS gap
+				  				FROM FAQ 
+				  				WHERE
   		]]>
-			  			<if test="listOrder == 'login'">faq_maincategori = 'login'</if>
-			  			<if test="listOrder == 'product'">faq_maincategori = 'product'</if>
-			  			<if test="listOrder == 'rental'">faq_maincategori = 'rental'</if>
-			  			<if test="listOrder == 'review'">faq_maincategori = 'review'</if>
+			  			<if test="listOrder == 'login'">FAQ_MAINCATEGORI = 'login'</if>
+			  			<if test="listOrder == 'product'">FAQ_MAINCATEGORI = 'product'</if>
+			  			<if test="listOrder == 'rental'">FAQ_MAINCATEGORI = 'rental'</if>
+			  			<if test="listOrder == 'review'">FAQ_MAINCATEGORI = 'review'</if>
 			  			<if test="listOrder == '' or listOrder == null">1 = 1</if>
 		<![CDATA[
 			  					AND
 		]]>
 						<if test="searchType == '' or searchType == null">1 = 1</if>
-				  		<if test="searchType == 'title'">FAQ_TITLE LIKE '%' ||#{searchName}||'%'</if>
-				  		<if test="searchType == 'writer'">FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
-				  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE '%'||#{searchName}||'%' OR FAQ_WRITER LIKE '%'||#{searchName}||'%'</if>
+				  		<if test="searchType == 'title'">FAQ_TITLE LIKE CONCAT('%', #{searchName},'%')</if>
+				  		<if test="searchType == 'writer'">FAQ_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+				  		<if test="searchType == 'tiwri'">FAQ_TITLE LIKE CONCAT('%', #{searchName},'%') OR FAQ_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
   		<![CDATA[		
-  								order by
+  								ORDER BY
   		]]>
-			  			<if test="orderType == '' or orderType == null">faq_no</if>
-			  			<if test="orderType == 'latestOrder'">faq_no</if>
-			  			<if test="orderType == 'viewOrder'">faq_view</if>
+			  			<if test="orderType == '' or orderType == null">FAQ_NO</if>
+			  			<if test="orderType == 'latestOrder'">FAQ_NO</if>
+			  			<if test="orderType == 'viewOrder'">FAQ_VIEW</if>
   		<![CDATA[
-  								desc ) ) a left outer join faq_image i
-  								on a.faq_no = i.faq_no 
-  				where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} )
+  								DESC ) A ) B LEFT OUTER JOIN FAQ_IMAGE I
+		  		  				ON  B.FAQ_NO = I.FAQ_NO, (SELECT @ROWNUM := 0) C 
+  				where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount} ) D
   		ORDER BY RN ASC, FI_NO ASC
   		]]>
   	</select>
@@ -185,47 +186,47 @@
   	
   	<select id="qnaGetList" resultMap="QnaInfo">
   		<![CDATA[
-  			select a.*,
-  				   qa.qa_No,
-  				   qa.qa_Writer,
-  				   qa.qa_Content
-  			from ( select ROWNUM RN,
-		  				   qna_No,
-		  				   qna_Writer,
-		  				   qna_Title,
-		  				   qna_Content,
-		  				   qna_MainCategori,
-		  				   qna_Tow,
-		  				   qna_View,
-		  				   case when gap <= 60 THEN '방금전'
-			  			        when gap <= 60 * 24 THEN trunc( gap / 60 ) || '시간전'
-			  			   else to_char(qna_regdate, 'YYYY-MM-DD')
-			  			   end as qna_Regdate
-					 from ( select qna_No, qna_Writer, qna_Title, qna_Content, qna_MainCategori, qna_Tow, qna_View, qna_Regdate, trunc( ( sysdate - qna_regdate ) * 24 * 60 ) as gap
-					 		from qna
-					 		where			  			   
+  			SELECT B.*,
+  				   QA_NO,
+  				   QA_WRITER,
+  				   QA_CONTENT
+  			FROM ( SELECT @ROWNUM := @ROWNUM + 1 RN,
+		  				   QNA_NO,
+		  				   QNA_WRITER,
+		  				   QNA_TITLE,
+		  				   QNA_CONTENT,
+		  				   QNA_MAINCATEGORI,
+		  				   QNA_TOW,
+		  				   QNA_VIEW,
+		  				   CASE WHEN gap <= 60 THEN '방금전'
+			  			        WHEN gap <= 60 * 24 THEN CONCAT(TRUNCATE( gap / 60, 0 ), '시간전')
+			  			   ELSE DATE_FORMAT(QNA_REGDATE, '%Y-%m-%D')
+			  			   END AS QNA_REGDATE
+					 FROM ( SELECT QNA_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT, QNA_MAINCATEGORI, QNA_TOW, QNA_VIEW, QNA_REGDATE, TRUNCATE( (NOW() - QNA_REGDATE) / 60, 0 ) AS gap
+					 		FROM QNA
+					 		WHERE			  			   
 	  	]]>
-			  			<if test="listOrder == 'login'">qna_maincategori = 'login'</if>
-			  			<if test="listOrder == 'product'">qna_maincategori = 'product'</if>
-			  			<if test="listOrder == 'rental'">qna_maincategori = 'rental'</if>
-			  			<if test="listOrder == 'review'">qna_maincategori = 'review'</if>
+			  			<if test="listOrder == 'login'">QNA_MAINCATEGORI = 'login'</if>
+			  			<if test="listOrder == 'product'">QNA_MAINCATEGORI = 'product'</if>
+			  			<if test="listOrder == 'rental'">QNA_MAINCATEGORI = 'rental'</if>
+			  			<if test="listOrder == 'review'">QNA_MAINCATEGORI = 'review'</if>
 			  			<if test="listOrder == '' or listOrder == null">1 = 1</if>
 		<![CDATA[
 			  			AND
 		]]>
 						<if test="searchType == '' or searchType == null">1 = 1</if>
-				  		<if test="searchType == 'title'">QNA_TITLE LIKE '%' ||#{searchName}||'%'</if>
-				  		<if test="searchType == 'writer'">QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
-				  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE '%'||#{searchName}||'%' OR QNA_WRITER LIKE '%'||#{searchName}||'%'</if>
+				  		<if test="searchType == 'title'">QNA_TITLE LIKE CONCAT('%', #{searchName},'%')</if>
+				  		<if test="searchType == 'writer'">QNA_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
+				  		<if test="searchType == 'tiwri'">QNA_TITLE LIKE CONCAT('%', #{searchName},'%') OR QNA_WRITER LIKE CONCAT('%', #{searchName},'%')</if>
   		<![CDATA[		
-  						order by
+  						ORDER BY
   		]]>
-			  			<if test="orderType == 'latestOrder'">qna_no</if>
-			  			<if test="orderType == '' or orderType == null">qna_no</if>
-			  			<if test="orderType == 'viewOrder'">qna_view</if>
+			  			<if test="orderType == 'latestOrder'">QNA_NO</if>
+			  			<if test="orderType == '' or orderType == null">QNA_NO</if>
+			  			<if test="orderType == 'viewOrder'">QNA_VIEW</if>
   		<![CDATA[
-  						desc ) ) a left outer join qna_answer qa
-  						on a.qna_no = qa.qna_no
+  						DESC ) A ) B LEFT OUTER JOIN QNA_ANSWER QA
+  						ON  B.QNA_NO = QA.QNA_NO, (SELECT @ROWNUM := 0) C 
   		where RN > (#{pageNum}-1) * #{amount} AND RN <= #{pageNum} * #{amount}
   		ORDER BY RN ASC
   		]]>
@@ -286,28 +287,28 @@
   	
   	<select id="getNoticeCurrent" resultType="int">
   		SELECT NOTICE_NO
-  		FROM ( SELECT ROWNUM RN,
+  		FROM ( SELECT @ROWNUM := @ROWNUM + 1 RN,
   					  NOTICE_NO
   				FROM NOTICE
-  				ORDER BY NOTICE_NO DESC)
-  		WHERE RN = 1
+  				ORDER BY NOTICE_NO DESC) A, (SELECT @ROWNUM := 0) B
+  		WHERE RN = 1;
   	</select>
   	
   	<select id="getFaqCurrent" resultType="int">
   		SELECT FAQ_NO
-  		FROM ( SELECT ROWNUM RN,
+  		FROM ( SELECT @ROWNUM := @ROWNUM + 1 RN,
   					  FAQ_NO
   				FROM FAQ
-  				ORDER BY FAQ_NO DESC)
+  				ORDER BY FAQ_NO DESC) A, (SELECT @ROWNUM := 0) B
   		WHERE RN = 1
   	</select>
   	
   	<insert id="noticeImageUpload">
-  		INSERT INTO NOTICE_IMAGE VALUES(NOTICE_IMAGE_SEQ.NEXTVAL, #{notice_No}, #{ni_Path}, #{ni_Name})
+  		INSERT INTO NOTICE_IMAGE(NOTICE_NO, NI_PATH, NI_NAME) VALUES(#{notice_No}, #{ni_Path}, #{ni_Name})
   	</insert>
   	
   	<insert id="faqImageUpload">
-  		INSERT INTO FAQ_IMAGE VALUES(FAQ_IMAGE_SEQ.NEXTVAL, #{faq_No}, #{fi_Path}, #{fi_Name})
+  		INSERT INTO FAQ_IMAGE(FAQ_NO, FI_PATH, FI_NAME) VALUES(#{faq_No}, #{fi_Path}, #{fi_Name})
   	</insert>
   	
   	<select id="getNoticeUpdateList" resultMap="NoticeUpdateList">
@@ -367,23 +368,23 @@
   	</resultMap>
   	
   	<insert id="noticeImageUpdate">
-  		INSERT INTO NOTICE_IMAGE VALUES(NOTICE_IMAGE_SEQ.NEXTVAL, #{bno}, #{imgPath}, #{imgName})
+  		INSERT INTO NOTICE_IMAGE(NOTICE_NO, NI_PATH, NI_NAME) VALUES(#{bno}, #{imgPath}, #{imgName})
   	</insert>
   	
   	<insert id="faqImageUpdate">
-  		INSERT INTO FAQ_IMAGE VALUES(FAQ_IMAGE_SEQ.NEXTVAL, #{bno}, #{imgPath}, #{imgName})
+  		INSERT INTO FAQ_IMAGE(FAQ_NO, FI_PATH, FI_NAME) VALUES(#{bno}, #{imgPath}, #{imgName})
   	</insert>
   	
   	<update id="noticeUpdate">
-  		UPDATE NOTICE SET NOTICE_TITLE = #{title}, NOTICE_CONTENT = #{content}, NOTICE_UPDATEDATE = SYSDATE WHERE NOTICE_NO = #{no}
+  		UPDATE NOTICE SET NOTICE_TITLE = #{title}, NOTICE_CONTENT = #{content}, NOTICE_UPDATEDATE = NOW() WHERE NOTICE_NO = #{no}
   	</update>
   	
   	<update id="faqUpdate">
-  		UPDATE FAQ SET FAQ_TITLE = #{title}, FAQ_CONTENT = #{content}, FAQ_MAINCATEGORI = #{main_Categori}, FAQ_UPDATEDATE = SYSDATE WHERE FAQ_NO = #{no}
+  		UPDATE FAQ SET FAQ_TITLE = #{title}, FAQ_CONTENT = #{content}, FAQ_MAINCATEGORI = #{main_Categori}, FAQ_UPDATEDATE = NOW() WHERE FAQ_NO = #{no}
   	</update>
   	
   	<update id="qnaUpdate">
-  		UPDATE QNA SET QNA_TITLE = #{title}, QNA_CONTENT = #{content}, QNA_MAINCATEGORI = #{main_Categori}, QNA_TOW = #{tow}, QNA_UPDATEDATE = SYSDATE WHERE QNA_NO = #{no}
+  		UPDATE QNA SET QNA_TITLE = #{title}, QNA_CONTENT = #{content}, QNA_MAINCATEGORI = #{main_Categori}, QNA_TOW = #{tow}, QNA_UPDATEDATE = NOW() WHERE QNA_NO = #{no}
   	</update>
   	
   </mapper>

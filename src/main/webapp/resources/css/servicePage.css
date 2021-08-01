@@ -1,4 +1,4 @@
-/* 1. �쎒�룿�듃 �꽑�뼵 */
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 @font-face {
@@ -6,36 +6,36 @@
   font-family: "Aria";
 }
 
-/* 2. �뵒�옄�씤 �떆�옉�떆 湲곕낯 �꽑�뼵 */
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 body, html {
-    font-family: 'Noto Sans KR', sans-serif;/* �쎒�룿�듃 �쟻�슜 */
+    font-family: 'Noto Sans KR', sans-serif;
     width: 100%;
     min-width: 320px; 
 }
 
 img {
-    max-width: 100%;/* �궗�씠利덇� 蹂��뻽�쓣 �븣 �꼻�씠 �쑀吏� */
-    height: auto; /* �꼻�씠�뿉 �뵲�씪 �넂�씠媛� 蹂��븿 */
+    max-width: 100%;
+    height: auto; 
 }
 
 input, textarea, button, select {
-    -webkit-appearance: none; /* 釉뚮씪�슦��蹂꾨줈 怨좎쑀�븯寃� �쟻�슜�릺�뒗 form愿��젴�슂�냼�뱾�쓽 css�젣嫄� */
+    -webkit-appearance: none; 
     -moz-appearance: none;
     -o-appearance: none;
 
 }
 
 ul, li, dl, ol {
-    list-style: none; /* �닚�꽌�슂�냼�뱾�쓽 由ъ뒪�듃�뒪���씪 �젣嫄� */
+    list-style: none; 
 }
 
 
-/* 泥ル쾲吏� �꽮�뀡 */
+
 .servicepage-s1 {
   background-image: url('../img/home.jpg');
   background-size: cover;
@@ -73,14 +73,15 @@ ul, li, dl, ol {
   margin-left: 300px;
 }
 
-.s1header-join {
+
+.s1header-mypage {
   position: absolute;
   top: 23px;
   left: 50%;
   margin-left: 400px;
 }
 
-.s1header-mypage {
+.s1header-service {
   position: absolute;
   top: 23px;
   left: 50%;
@@ -95,7 +96,7 @@ ul, li, dl, ol {
   font-family: "Aria";
   font-size: 300%;
   color: #fff;
-  /* 湲��뵪 �뀒�몢由� */
+
   /* text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue; */
 }
 
@@ -115,7 +116,6 @@ ul, li, dl, ol {
 } */
 
 
-/* �몢踰덉㎏ �꽮�뀡 */
 .servicepage-s3 {
   text-align: center;
 }
@@ -141,7 +141,6 @@ ul, li, dl, ol {
 }
 
 
-/* �꽭踰덉㎏ �꽮�뀡 */
 .s2-management {
   text-align: center;
 }
@@ -179,7 +178,6 @@ ul, li, dl, ol {
 
 }
 
-/* �꽕踰덉㎏ �꽮�뀡 */
 
 .servicepage-s4 {
   text-align: center;
@@ -230,21 +228,20 @@ ul, li, dl, ol {
 
 
 
-/* �뒪�겕濡ㅻ컮 �꽕�젙*/
+
 .s4-content::-webkit-scrollbar{
   width: 5px;
 }
 
-/* �뒪�겕濡ㅻ컮 留됰� �꽕�젙*/
+
 .s4-content::-webkit-scrollbar-thumb{
   height: 17%;
   background-color: rgba(255,255,255,1);
   border: 1px solid #87CEFA;
-  /* �뒪�겕濡ㅻ컮 �뫁湲�寃� �꽕�젙    */
   border-radius: 10px;    
 }
 
-/* �뒪�겕濡ㅻ컮 �뮮 諛곌꼍 �꽕�젙*/
+
 .s4-content::-webkit-scrollbar-track{
   background-color: rgba(0,0,0,0);
 }
@@ -290,9 +287,6 @@ ul, li, dl, ol {
 
 
 
-
-
-/* �떎�꽢踰덉㎏ �꽮�뀡 */
 .servicepage-s5 {
   text-align: center;
 }
@@ -340,7 +334,7 @@ ul, li, dl, ol {
   vertical-align: middle;
 }
 
-/* 留덉�留� �꽮�뀡 */
+
 .servicepage-s6 {
   background-image: url('../img/wall.jpg');
   background-size: cover;
@@ -363,7 +357,7 @@ ul, li, dl, ol {
 
 
 
-/* 梨꾪똿2 */
+
 
 .servicepage-s7 {
   text-align: center;

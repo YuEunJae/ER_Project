@@ -15,11 +15,11 @@
 	</definition>	
 	
 	
+	<definition name="servicePage/servicePage" template="/WEB-INF/views/servicePage/servicePage.jsp" />
+	<definition name="error" template="/WEB-INF/views/errorPage.jsp" />
+
 	<!-- 위에 선언된 타일즈템플릿을 상속 -->
 	<!-- name속성은 controller에서 연결할 이름 -->
-	
-	<definition name="servicePage/servicePage" template="/WEB-INF/views/servicePage/servicePage.jsp" />
-
 	<definition name="*" extends="templateDefault">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>

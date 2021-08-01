@@ -361,6 +361,7 @@
     <script>
     	userId = "${userVO.userId}";
     	socketPath = "${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/csBoardSocket";
+    	cookiePath = "${pageContext.request.contextPath }";
     </script>
     
     <script>

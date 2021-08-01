@@ -28,5 +28,15 @@ public class LocationServiceImpl implements LocationService{
 	public List<KickListVO> getKickInfo() {
 		return locationMapper.getKickInfo();
 	}
+
+	@Override
+	public int setRental(int markNo) {
+		return locationMapper.setRental(markNo);
+	}
+
+	@Override
+	public int cencleRental(int markNo) {
+		return locationMapper.cencleRental(markNo);
+	}
 	
 }

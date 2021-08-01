@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,6 +35,7 @@ import com.erproject.command.FaqVO;
 import com.erproject.command.NoticeVO;
 import com.erproject.command.QnaAnswerVO;
 import com.erproject.command.QnaVO;
+import com.erproject.command.UserVO;
 import com.erproject.csboard.service.CsBoardService;
 import com.erproject.util.Criteria;
 import com.erproject.util.OrderUtil;
@@ -48,12 +50,13 @@ public class CsBoardController {
 	private CsBoardService csBoardService;
 
 	@RequestMapping("/csBoardList")
-
 	public void csBoard(OrderUtil orderUtil,
 						Criteria cri,
-						Model model) {
+						Model model, HttpSession session) {
 		
-		System.out.println(orderUtil.toString());
+		UserVO userVO = new UserVO();
+		userVO.setUserId("master123");
+		session.setAttribute("userVO", userVO);
 		
 //		노티스 게시판 페이징 만들기
 		PageVO noticePage = new PageVO(cri, csBoardService.getNoticeTotal(orderUtil));
@@ -114,8 +117,6 @@ public class CsBoardController {
 	public String noticeRegist(NoticeVO vo, 
 							   RedirectAttributes RA) {
 		
-		System.out.println(vo.getFile().toString());
-		
 		int result = csBoardService.noticeRegist(vo);
 		
 		if( result == 1) {
@@ -148,8 +149,6 @@ public class CsBoardController {
 	public String qnaRegistOk(QnaVO vo,
 							  RedirectAttributes RA) {
 		
-		System.out.println(vo.toString());
-		
 		int result = csBoardService.qnaRegist(vo);
 		
 		if( result == 1) {
@@ -180,8 +179,6 @@ public class CsBoardController {
 //	게시판 수정하기 완료
 	@RequestMapping("/CsUpdateOK")
 	public String CsUpdateOK(CsUpdateVO vo, HttpServletRequest request, HttpServletResponse response, RedirectAttributes RA) {
-		
-		System.out.println(vo.toString());
 		
 		Cookie[] cookies = request.getCookies();
 		
@@ -264,7 +261,7 @@ public class CsBoardController {
 		
 		try {
 //			파일데이터를 바이트데이터로 변환해서 반환
-			File file = new File(APP_CONSTANT.UPLOAD_PATH + "\\" + fileLoca + "\\" + fileName);
+			File file = new File(APP_CONSTANT.UPLOAD_PATH + fileLoca + "/" + fileName);
 			
 //			반환할 헤더객체
 			HttpHeaders header = new HttpHeaders(); //

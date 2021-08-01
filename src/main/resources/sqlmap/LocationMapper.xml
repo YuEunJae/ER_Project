@@ -45,5 +45,11 @@
   			UPDATE kickList SET pCode=#{pCode}, cCode=#{cCode} WHERE markNo = #{markNo}
   	</update>
   	
+  	<update id="setRental">
+  			UPDATE kickList SET isRental=1, rentalDate=now() WHERE markNo = #{markNo};
+  	</update>
   	
+  	<update id="cencleRental">
+  			UPDATE kickList SET isRental=0, rentalDate='1111-11-11' WHERE markNo = #{markNo}
+  	</update>
   </mapper>

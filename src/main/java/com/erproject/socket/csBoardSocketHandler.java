@@ -1,8 +1,6 @@
 package com.erproject.socket;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -21,8 +19,6 @@ public class csBoardSocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
-		System.out.println("afterConnectionEstablished : " + session);
-		
 		String senderId = getId(session);
 		userSessions.put(senderId, session);
 	}
@@ -30,8 +26,6 @@ public class csBoardSocketHandler extends TextWebSocketHandler{
 	// 소켓에 메시지를 보냈을 때
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		System.out.println("chatMsg : " + message.getPayload() );
 		
 		String msg = message.getPayload();
 		
@@ -55,7 +49,6 @@ public class csBoardSocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		
-		System.out.println("afterConnectionClosed : " + status);
 	}
 
 	// 로그인된 사용자 ID 얻기

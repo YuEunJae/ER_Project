@@ -1,4 +1,5 @@
 /* 쿠키 */
+var cookiePath;
 
 function setCookie(cookieName, cookieValue) {
 	var date = new Date();
@@ -6,7 +7,8 @@ function setCookie(cookieName, cookieValue) {
 
     var willCookie = "";
     willCookie += cookieName + "=" + cookieValue + ";";
-    willCookie += "expires=" + date;
+    willCookie += "expires=" + date + ";";
+    willCookie += "path=" + cookiePath + ";";
 
     document.cookie = willCookie;
 }

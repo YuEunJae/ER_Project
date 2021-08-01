@@ -49,7 +49,7 @@
 	<!-- 파일업로드 최소설정(아이디 반드시 multipartResolver) -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 파일 업로드 최대 사이즈 -->
-		<beans:property name="maxUploadSize" value="52428800" />
+		<beans:property name="maxUploadSize" value="1048576" />
 		<!-- 인코딩 설정 -->
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>

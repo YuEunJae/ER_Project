@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Service</title>
 
     <!--최서익 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/servicePage.css">
@@ -29,10 +29,10 @@
     <div class="section servicepage-s1">
     
           <div class="s1-header">
-          <a href="" class="s1header-logo"><img src="${pageContext.request.contextPath }/resources/img/logo.png" alt=""></a>
-          <a href="${pageContext.request.contextPath }/user/userLogin" class="s1header-login">Login</a>
-          <a href="${pageContext.request.contextPath }/user/userJoin" class="s1header-join">Join</a>
+          <a href="${pageContext.request.contextPath }/" class="s1header-logo"><img src="${pageContext.request.contextPath }/resources/img/logo.png" alt=""></a>
+          <a href="${pageContext.request.contextPath }/user/userLogout" class="s1header-login">Logout</a>
           <a href="${pageContext.request.contextPath }/user/userMypage" class="s1header-mypage">Mypage</a>
+          <a href="${pageContext.request.contextPath }/servicePage/servicePage" class="s1header-service">Service</a>
       </div>
 
 

@@ -72,10 +72,11 @@ var socketPath;
 
     /* 쿠키를 통해 현재 게시판 탐색 */
     $(document).ready( function() {
-        
-        if(getCookie("whereboard") == undefined){
-            setCookie("whereboard", "Notice");
-        } 
+    
+   		// 만약 쿠키가 없다면?
+   		if(getCookie("whereboard") == undefined){
+    		setCookie("whereboard", "Notice");
+    	}
         
         /* 전에 보여지던 게시판 */
         var preActive = document.querySelector("body > div.active");
@@ -128,6 +129,7 @@ var socketPath;
         init(); // 설정되어있던 pageNum 등 초기화
         
         registBtn(); // 글쓰기 버튼 표시 여부
+        
         
         document.pageForm.submit();
     });

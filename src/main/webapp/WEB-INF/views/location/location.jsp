@@ -58,7 +58,21 @@
                         </div>
                         <div>
                             <button class="btn btn-default btn-signature1" onclick="location.href='${pageContext.request.contextPath}/csBoard/csBoardList'">문의하기</button>
-                            <button class="btn btn-default btn-signature2">예약하기</button>
+                            <c:choose>
+                            	<c:when test="${sessionScope.userVO != null}">
+                            		<c:choose>
+                    	        		<c:when test="${kickInfo.getIsRental()!=1}">
+	            	                		<button class="btn btn-default btn-signature2" onclick="setRental(${kickInfo.getMarkNo()})">예약하기</button>
+            	                		</c:when>
+        	                    		<c:otherwise>
+    	                        			<button class="btn btn-default btn-signature2" onclick="cencleRental(${kickInfo.getMarkNo()})">예약취소</button>
+	                            		</c:otherwise>
+                            		</c:choose>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<button class="btn btn-default btn-signature2" onclick="noLogin()">예약하기</button>
+                            	</c:otherwise>
+                            </c:choose>
                         </div>                           
                     </div>           
                 </li>
@@ -121,9 +135,6 @@
 	                console.log(status, error);
 	            }
 	        })
-
-
-			
 		})
 
 	    // 마커 이미지의 이미지 주소입니다
@@ -297,5 +308,45 @@
             );
     
             return markerImage;
+        }
+        function setRental(markNo) {
+	        $.ajax({
+    	        type : "post", //요청방식
+        	    url : "setRental",
+            	dataType : "json", //요청 데이터 형식
+	            contentType : "application/json",//보내는 데이터에 대한 타입
+	            data : JSON.stringify(markNo),
+    	        success : function(kickInfo) {
+    	        	alert("예약 되었습니다.");
+    	        	history.go(0);
+    	        },
+	            error : function(status, error) {//실패시 결과를 돌려받을 콜백
+					alert("예약에 실패하였습니다.");	            
+	            }
+	        })
+    	}
+        function cencleRental(markNo) {
+	        $.ajax({
+    	        type : "post", //요청방식
+        	    url : "cencleRental",
+            	dataType : "json", //요청 데이터 형식
+	            contentType : "application/json",//보내는 데이터에 대한 타입
+	            data : JSON.stringify(markNo),
+    	        success : function(kickInfo) {
+    	        	alert("예약이 취소되었습니다.");
+    	        	history.go(0);
+    	        },
+	            error : function(status, error) {//실패시 결과를 돌려받을 콜백
+					alert("예약 취소에 실패했습니다.");	            
+	            }
+	        })
+    	}
+        function noLogin() {
+        	var result = confirm("로그인이 필요한 페이지 입니다.");
+        	if(result){
+        		location.href="${pageContext.request.contextPath}/user/userLogin"
+        	} else {
+        		history.go(0);
+        	}
         }
 	</script>

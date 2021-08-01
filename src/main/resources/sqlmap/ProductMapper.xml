@@ -5,95 +5,96 @@
   
   <mapper namespace="com.erproject.product.mapper.ProductMapper">
   
-  	<insert id="reviewRegist">
-  		insert into PRODUCTREVIEW(RNO, WRITER, TITLE, STAR, CONTENT, PCODE, HELPCOUNT)
-  					VALUES(PRODUCTREVIEW_SEQ.NEXTVAL, #{writer}, #{title}, #{star}, #{content}, #{pcode}, #{helpcount})
-  	</insert>
-  	
-  	<select id="reviewGetList" resultType="ProductReviewVO" parameterType="HashMap">
-  		<![CDATA[
-  		select *
-  		from (select rownum rn,
-  					 a.*
-  			  from (select *
-  			  		from productreview
-  			  		where pcode = #{pcode}
-  			  		order by rno desc) a)
-  		where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
-  		]]>
-  	</select>
-  	
-  	<select id="getTotal" resultType="int">
-  		select count(*) as total from productreview where pcode = #{pcode}
-  	</select>
-  	
-  	<select id="getDetail" resultType="ProductReviewVO">
-  		select * from PRODUCTREVIEW where rno = #{rno}
-  	</select>
-  	
-  	<update id="update">
-  		update PRODUCTREVIEW
-  		set title = #{title},
-  			star = #{star},
-  			content = #{content},
-  			updatedate = sysdate
-  		where rno = #{rno}
-  	</update>
-  	
-  	<delete id="delete">
-  		delete from PRODUCTREVIEW where rno = #{rno}
-  	</delete>
-  	
-  	<select id="productGetList" resultType="ProductInfoVO">
-  		select * from PRODUCTINFO where pcode = #{pcode}
-  	</select>
-  	
-  	<select id="starGetList" resultType="int">
-  		select star from productreview where pcode = #{pcode}
-  	</select>
-  	
-  	<select id="productReviewCheck" resultType="int">
-  		select count(*) from productreview where writer = #{userId} and pcode = #{pcode}
-  	</select>
-  	
-  	<!-- <update id="helpCountUp">
-  		update productreview set helpcount = helpcount + 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update>
-  	
-  	<select id="helpCountSelect" resultType="int">
-  		select helpcount from productreview where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</select>
-  	
-  	<update id="helpCountDown">
-  		update productreview set helpcount = helpcount - 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update>
-  	
-  	<update id="helpCountDownNo">
-  		update productreview set helpcount = helpcount - 0 where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update> -->
+     <insert id="reviewRegist">
+        insert into PRODUCTREVIEW(WRITER, TITLE, STAR, CONTENT, PCODE, HELPCOUNT)
+                 VALUES(#{writer}, #{title}, #{star}, #{content}, #{pcode}, #{helpcount})
+     </insert>
+     
+     <select id="reviewGetList" resultType="ProductReviewVO" parameterType="HashMap">
+        <![CDATA[
+        select *
+        from (select @rownum := @rownum + 1 rn,
+                  a.*
+             from (select *
+                   from PRODUCTREVIEW
+                   where pcode = #{pcode}
+                   order by rno desc) a
+             ) b, (select @rownum := 0) c
+        where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
+        ]]>
+     </select>
+     
+     <select id="getTotal" resultType="int">
+        select count(*) as total from PRODUCTREVIEW where pcode = #{pcode}
+     </select>
+     
+     <select id="getDetail" resultType="ProductReviewVO">
+        select * from PRODUCTREVIEW where rno = #{rno}
+     </select>
+     
+     <update id="update">
+        update PRODUCTREVIEW
+        set title = #{title},
+           star = #{star},
+           content = #{content},
+           updatedate = now()
+        where rno = #{rno}
+     </update>
+     
+     <delete id="delete">
+        delete from PRODUCTREVIEW where rno = #{rno}
+     </delete>
+     
+     <select id="productGetList" resultType="ProductInfoVO">
+        select * from PRODUCTINFO where pcode = #{pcode}
+     </select>
+     
+     <select id="starGetList" resultType="int">
+        select star from PRODUCTREVIEW where pcode = #{pcode}
+     </select>
+     
+     <select id="productReviewCheck" resultType="int">
+        select count(*) from PRODUCTREVIEW where writer = #{userId} and pcode = #{pcode}
+     </select>
+     
+     <!-- <update id="helpCountUp">
+        update productreview set helpcount = helpcount + 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update>
+     
+     <select id="helpCountSelect" resultType="int">
+        select helpcount from productreview where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </select>
+     
+     <update id="helpCountDown">
+        update productreview set helpcount = helpcount - 1 where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update>
+     
+     <update id="helpCountDownNo">
+        update productreview set helpcount = helpcount - 0 where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update> -->
   
-  	<select id="helpSelect" resultType="ProductHelpVO">
-  		select * from reviewhelp where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</select>
-  	
-  	<insert id="helpInsert">
-  		insert into reviewhelp(userid, rno, pcode) values(#{vo.userId}, #{vo.rno}, #{vo.pcode})
-  	</insert>
+     <select id="helpSelect" resultType="ProductHelpVO">
+        select * from REVIEWHELP where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+     </select>
+     
+     <insert id="helpInsert">
+        insert into REVIEWHELP(userid, rno, pcode) values(#{vo.userId}, #{vo.rno}, #{vo.pcode})
+     </insert>
   
-  	<update id="helpUpdateOne">
-  		update reviewhelp set helpcount = 1 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update>
-  	
-  	<update id="helpUpdateZero">
-  		update reviewhelp set helpcount = 0 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update>
-  	
-  	<select id="helpTotal" resultType="int">
-  		select helpcount from reviewhelp where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</select>
-  	
-  	<update id="updateTotal">
-  		update productreview set helpcount = #{total} where pcode = #{vo.pcode} and rno = #{vo.rno}
-  	</update>
+     <update id="helpUpdateOne">
+        update REVIEWHELP set helpcount = 1 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update>
+     
+     <update id="helpUpdateZero">
+        update REVIEWHELP set helpcount = 0 where userid = #{vo.userId} and pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update>
+     
+     <select id="helpTotal" resultType="int">
+        select helpcount from REVIEWHELP where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </select>
+     
+     <update id="updateTotal">
+        update PRODUCTREVIEW set helpcount = #{total} where pcode = #{vo.pcode} and rno = #{vo.rno}
+     </update>
   
   </mapper>

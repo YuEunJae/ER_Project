@@ -9,4 +9,6 @@ public interface LocationService {
 	public int setMarkInfo(KickListVO vo);
 	public List<KickListVO> getKickInfo();
 	public int updateMarkInfo(KickListVO vo);
+	public int setRental(int markNo);
+	public int cencleRental(int markNo);
 }

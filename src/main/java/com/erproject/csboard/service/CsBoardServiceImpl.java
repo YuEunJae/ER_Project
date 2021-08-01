@@ -37,7 +37,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 			
 			for(int i = 0 ; i < vo.getFile().size() ; i++) {
 				
-				File folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice"); // 폴더 생성위치
+				File folder = new File(APP_CONSTANT.UPLOAD_PATH + "Notice"); // 폴더 생성위치
 				
 				if(!folder.exists()) { // 해당 경로에 폴더가 없다면
 					folder.mkdir(); // 폴더 생성
@@ -64,7 +64,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 					// 업로드 파일명
 					String fileName = uuids + fileExtention;
 					
-					File saveFile = new File(uploadPath + "\\" + fileName);
+					File saveFile = new File(uploadPath + fileName);
 					file.transferTo(saveFile); // 파일쓰기
 					
 					NoticeImageVO imageVO = new NoticeImageVO();
@@ -92,7 +92,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 			
 			for(int i = 0 ; i < vo.getFile().size() ; i++) {
 				
-				File folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ"); // 폴더 생성위치
+				File folder = new File(APP_CONSTANT.UPLOAD_PATH  + "FAQ"); // 폴더 생성위치
 				
 				if(!folder.exists()) { // 해당 경로에 폴더가 없다면
 					folder.mkdir(); // 폴더 생성
@@ -119,7 +119,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 					// 업로드 파일명
 					String fileName = uuids + fileExtention;
 					
-					File saveFile = new File(uploadPath + "\\" + fileName);
+					File saveFile = new File(uploadPath + fileName);
 					file.transferTo(saveFile); // 파일쓰기
 					
 					FaqImageVO imageVO = new FaqImageVO();
@@ -316,9 +316,9 @@ public class CsBoardServiceImpl implements CsBoardService{
 				File folder = null; // 폴더 생성위치
 				
 				if(whereBoard.equals("Notice")) {
-					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "Notice");
+					folder = new File(APP_CONSTANT.UPLOAD_PATH + "Notice");
 				} else if (whereBoard.equals("FAQ")) {
-					folder = new File(APP_CONSTANT.UPLOAD_PATH + "//" + "FAQ");
+					folder = new File(APP_CONSTANT.UPLOAD_PATH + "FAQ");
 				}
 				
 					if(!folder.exists()) { // 해당 경로에 폴더가 없다면
@@ -349,7 +349,7 @@ public class CsBoardServiceImpl implements CsBoardService{
 						// 업로드 파일명
 						String fileName = uuids + fileExtention;
 						
-						File saveFile = new File(uploadPath + "\\" + fileName);
+						File saveFile = new File(uploadPath + fileName);
 						file.transferTo(saveFile); // 파일쓰기
 						
 						if(whereBoard.equals("Notice")) {
