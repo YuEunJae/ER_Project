@@ -1,10 +1,11 @@
 create table users(
-    userId varchar2(50) primary key,
-    userPw varchar2(50) ,
-    userName varchar2(50),
-    userPhone varchar2(20),
-    userEmail varchar2(50)  , /*두개로 받아서 저장은 하나로 받기*/
-    addrAll varchar2(700) ,
-    regdate date default sysdate
-);
+         userId varchar(50) primary key,
+         userPw varchar(50) ,
+         userName varchar(50),
+         userPhone varchar(20),
+        userEmail varchar(50) not null , 
+        addrAll varchar(700) ,
+        regdate DATETIME default CURRENT_TIMESTAMP
+ );
+
 

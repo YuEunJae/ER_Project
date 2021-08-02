@@ -9,6 +9,8 @@ function setCookie(cookieName, cookieValue) {
     willCookie += cookieName + "=" + cookieValue + ";";
     willCookie += "expires=" + date + ";";
     willCookie += "path=" + cookiePath + ";";
+    
+    console.log(cookiePath);
 
     document.cookie = willCookie;
 }

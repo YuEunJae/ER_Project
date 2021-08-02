@@ -54,10 +54,6 @@ public class CsBoardController {
 						Criteria cri,
 						Model model, HttpSession session) {
 		
-		UserVO userVO = new UserVO();
-		userVO.setUserId("master123");
-		session.setAttribute("userVO", userVO);
-		
 //		노티스 게시판 페이징 만들기
 		PageVO noticePage = new PageVO(cri, csBoardService.getNoticeTotal(orderUtil));
 //		faq 게시판 페이징 만들기

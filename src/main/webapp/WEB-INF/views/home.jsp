@@ -7,7 +7,7 @@
  
   
   
-    <section class="one">
+  <section class="one">
        
            <div class="index1">
               <div class="oneMain">
@@ -20,8 +20,8 @@
                     <h2><img src="${pageContext.request.contextPath}/resources/img/logo2.png" alt=""></h2>
 
                     <div class="wrapBtn">
-                        <button class="button" onclick="location.href='location/location'"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
-                        <button class="button" onclick="location.href='photo/photoList'"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
+                        <button class="button"><span class="glyphicon glyphicon-search gly"></span>비교하기</button>
+                        <button class="button"><span class="glyphicon glyphicon-cloud gly"></span>리뷰쓰기</button>
                         <button class="button" onclick="location.href='product/kangarooProductList'"><span class="glyphicon glyphicon-tags gly"></span>제품상세</button>
                       </div>
             
@@ -70,7 +70,7 @@
         </div>
     </section>
     
-     <script>
+    <script>
     
     $("#kickNumBtn").click(function(){
     	
@@ -96,7 +96,6 @@
     
     
     </script>
-    
 
     <section class="two">
         
@@ -113,20 +112,13 @@
                 <div class="flip-card-container">
                     <div class="flip-card">
                   
-                      <div class="card-front">
+                     <div class="card-front">
                         
                           <div class="img-bg"></div>
-                          <img src="${pageContext.request.contextPath }/resources/img/computer1.png" >
+                          <img src="${pageContext.request.contextPath }/resources/img/kickal.png" >
                    
-                      </div>
-                  
-                      <div class="card-back">
-                       
-                          <div class="img-bg"></div>
-                        <img src="${pageContext.request.contextPath }/resources/img/computer1.png">
-                  
+                      </div> 
               
-                    </div>
                   </div>
               </div>
 
@@ -204,7 +196,7 @@
 
 
       
-    </section>
+   </section>
 
 
 

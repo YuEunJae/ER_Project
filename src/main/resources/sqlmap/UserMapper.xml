@@ -21,8 +21,12 @@
   
   <!-- 회원가입 -->
  <insert id="join">
+  		<!-- insert into users(userId, userPw, userName, userPhone, userEmail, addrAll)
+  		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , #{userEmail1} || #{userEmail2}, #{addrZipNum} ||#{addrBasic}|| #{addrDetail}) -->
+  		
   		insert into users(userId, userPw, userName, userPhone, userEmail, addrAll)
-  		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , #{userEmail1} || #{userEmail2}, #{addrZipNum} ||#{addrBasic}|| #{addrDetail})
+		values(#{userId}, #{userPw}, #{userName},  #{userPhone} , CONCAT(IFNULL(#{userEmail1}, '') , IFNULL(#{userEmail2}, '')), CONCAT(IFNULL(#{addrZipNum}, '') ,IFNULL(#{addrBasic}, ''), IFNULL(#{addrDetail}, '')))
+  		
   		
   	</insert>
   	
@@ -111,13 +115,22 @@
   	
   	<update id="update">
   	
-  	update USERS set userPw = #{userPw},
+  	<!-- update USERS set userPw = #{userPw},
   	                 userName =#{userName},
   	                 userPhone =#{userPhone},
   	                 userEmail =#{userEmail},
   	                 addrAll =#{addrZipNum} || #{addrBasic} || #{addrDetail}
   	                 
+  	                 where userId =#{userId} -->
+  	                 
+  	      update USERS set userPw = #{userPw},
+  	                 userName =#{userName},
+  	                 userPhone =#{userPhone},
+  	                 userEmail =#{userEmail},
+  	                 addrAll =CONCAT(IFNULL(#{addrZipNum}, '') , IFNULL(#{addrBasic}, '') , IFNULL(#{addrDetail}, ''))
+  	                 
   	                 where userId =#{userId}
+  	      
   	</update>
   	
   	<!--패스워드 업데이트 하기! -->
@@ -131,7 +144,11 @@
   	<delete id="delete">
   	delete from users where userId=#{userId} and userPw =#{userPw}
   	</delete>
-
+  	
+<!--   	<select id="forgotck" resultType="int">
+  	select count(*) as result from users where userId = #{userId} and userEmail =#{userEmail}
+  	
+  	</select> -->
   	
   	
  <!-- qna게시글 내가쓴글 삭제!~ -->
@@ -156,7 +173,7 @@
   	
   	<select id="rentalNum" resultType="int">
   	
-  	select count(*) as result from kickList where isRental = 0
+  	select count(*) as result from kickList where isRental =0
   	
   	</select>
   	
