@@ -24,7 +24,7 @@
   	</select>
   	
   	<insert id="photoReviewRegist">
-		insert into photoreview values(0,  #{pcode}, #{photoImage}, #{photoWriter}, #{photoTitle}, #{photoStar}, #{photoContent}, NOW() );
+		insert into PHOTOREVIEW values(0,  #{pcode}, #{photoImage}, #{photoWriter}, #{photoTitle}, #{photoStar}, #{photoContent}, NOW() );
 
   	</insert>
   	
